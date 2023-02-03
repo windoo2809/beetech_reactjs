@@ -1,0 +1,49 @@
+@import "mixins";
+@import "variables";
+
+.slick-slider{
+  .slick-slide{
+    &:focus{
+      outline: none;
+    }
+  }
+  .slick-dots{
+    padding: 0;
+    margin: 0;
+    height: auto;
+    line-height: 1;
+    list-style: none;
+    position: static;
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+    li{
+      width: auto;
+      height: auto;
+      margin-left: 0;
+      &:not(:last-child){
+        margin-right: 7px;
+      }
+      &.slick-active{
+        button{
+          background: $color-main;
+          border-color: $color-main;
+        }
+      }
+    }
+    button{
+      font-size: 0;
+      padding: 0;
+      margin: 0;
+      border: 1px solid #ccc;
+      width: 10px;
+      height: 10px;
+      display: block;
+      @include transition(all linear .3s);
+      @include border-radius(50%);
+      &::before {
+        content: none;
+      }
+    }
+  }
+}

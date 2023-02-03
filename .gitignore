@@ -1,0 +1,4 @@
+docker-compose.*
+app/api/src/vendor/bin/*
+app/api/.DS_Store
+.idea/

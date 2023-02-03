@@ -1,0 +1,94 @@
+server {
+    listen 80;
+    server_name localhost;
+    client_max_body_size 100M;
+    
+    proxy_connect_timeout       60;
+    proxy_send_timeout          60;
+    proxy_read_timeout          60;
+    send_timeout                60;
+    
+    location / {
+        proxy_pass http://cust_front:3000;
+        proxy_pass_request_headers on;
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+        
+        # cors
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods "POST, GET, OPTIONS";
+        add_header Access-Control-Allow-Headers "Origin, Authorization, Accept";
+        add_header Access-Control-Allow-Credentials true;
+
+	auth_basic "Landmark Custorder Develop App";
+        auth_basic_user_file /etc/nginx/conf.d/.htpasswd; 
+    }
+
+    # API用のルール
+    location /api {
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+
+        proxy_pass http://cust_api;
+        proxy_pass_request_headers on;
+    }
+
+    # let's encrypt setting
+    location /.well-known/ {
+        alias /var/.well-known/;
+    }
+
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate     /etc/letsencrypt/live/dev-custorder.landmark.jesus-app.jp/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dev-custorder.landmark.jesus-app.jp/privkey.pem;
+  
+    server_name localhost;
+    client_max_body_size 100M;
+
+    proxy_connect_timeout       60;
+    proxy_send_timeout          60;
+    proxy_read_timeout          60;
+    send_timeout                60;
+
+    location / {
+        proxy_pass http://cust_front:3000;
+        proxy_pass_request_headers on;
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+        
+        # cors
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods "POST, GET, OPTIONS";
+        add_header Access-Control-Allow-Headers "Origin, Authorization, Accept";
+        add_header Access-Control-Allow-Credentials true;
+
+        auth_basic "Landmark Custorder Develop App";
+        auth_basic_user_file /etc/nginx/conf.d/.htpasswd;
+    
+    }
+
+    # API用のルール
+    location /api {
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+
+        proxy_pass http://cust_api;
+        proxy_pass_request_headers on;
+    }
+
+    # let's encrypt setting
+    location /.well-known/ {
+        alias /var/.well-known/;
+    }
+}

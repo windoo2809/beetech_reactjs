@@ -1,0 +1,116 @@
+@import "mixins";
+@import "variables";
+
+.btn{
+  &-lg{
+    font-size: 1.2em;
+  }
+  &:focus, &.focus{
+    @include box-shadow(0 0 10px 2px rgba($color-main, 0.25));
+  }
+}
+.btn-primary{
+  background-color: $color-main;
+  border-color: $color-main;
+  &,
+  &:not(:disabled), &:not(.disabled),
+  &:not(:disabled), &:not(.disabled){
+    &:active,
+    &.active{
+      &, &:focus{
+        background-color: $color-main;
+        border-color: $color-main;
+        @include box-shadow(0 0 10px 2px rgba($color-main, 0.25));
+      }
+    }
+  }
+  &.disabled,
+  &:disabled{
+    background-color: rgba($color-main, 0.7);
+    border-color: rgba($color-main, 0.7);
+  }
+  &:hover{
+    background-color: $color-hover;
+    border-color: $color-hover;
+  }
+  &:focus,
+  &.focus{
+    @include box-shadow(0 0 10px 2px rgba($color-main, 0.25));
+  }
+  &--light{
+    border: 1px solid $color-main;
+    color: $color-main;
+    &:hover,&:focus{
+      color: $color-main;
+      background: rgba($color-main, 0.05);
+    }
+  }
+}
+.show > .btn-primary.dropdown-toggle{
+  background-color: $color-main;
+  border-color: $color-main;
+  @include box-shadow(0 0 10px 2px rgba($color-main, 0.25));
+  &:focus{
+    @include box-shadow(0 0 10px 2px rgba($color-main, 0.25));
+  }
+}
+.form-control{
+  padding: 8px 12px;
+  height: auto;
+  border-color: #eee;
+
+  &:focus{
+    border-color: $color-main;
+    box-shadow: 0 0 10px 2px rgba($color-main, 0.25);
+  }
+}
+.breadcrumb{
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  display: block;
+  @include line-clamp(1);
+  margin-bottom: 24px;
+
+  &-item{
+    color: #999;
+    display: inline;
+    &.active{
+      color: $color-main;
+    }
+    a:hover{
+      color: $color-main;
+    }
+  }
+}
+
+.pagination{
+  .page-link{
+    color: $color-main;
+    border-color: #eee;
+    &:focus{
+      @include box-shadow(0 0 0 0.2rem rgba($color-main, 0.25))
+    }
+  }
+  .page-item.active .page-link{
+    background-color: $color-main;
+    border-color: #eee;
+    &:hover{
+      background-color: $color-main;
+      border-color: #eee;
+      color: #fff;
+    }
+  }
+}
+
+.dropdown{
+  &-item{
+    &:hover{
+      color: $color-main;
+    }
+    &.active, &:active{
+      background-color: $color-main;
+      color: #fff
+    }
+  }
+}

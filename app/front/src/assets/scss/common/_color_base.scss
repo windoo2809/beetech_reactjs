@@ -1,0 +1,34 @@
+//bg-color
+.bg{
+  &-main{
+    background: $color-main;
+    color: #fff;
+  }
+  &-orange{
+    background: $color-orange;
+    color: #fff;
+  }
+  &-purple{
+    background: $color-purple;
+    color: #fff;
+  }
+  &-yellow{
+    background: $color-yellow;
+    color: #333;
+  }
+  &-green{
+    background: $color-green;
+    color: #fff;
+  }
+  &-pink{
+    background: #fb95a9;
+    color: #fff;
+  }
+  &-red{
+    background: $color-red;
+    color: #fff;
+  }
+  &-orange:hover,&-purple:hover,&-green:hover,&-pink:hover,&-main:hover{
+    color: #fff;
+  }
+}

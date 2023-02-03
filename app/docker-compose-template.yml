@@ -1,0 +1,73 @@
+version: "3"
+services:
+  cust_proxy:
+    image: nginx:1.17-alpine
+    container_name: cust_proxy
+    depends_on:
+      - cust_front
+      - cust_api
+    volumes:
+      - ./app/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app/conf.d/.htpasswd:/etc/nginx/conf.d/.htpasswd:ro
+      - ./letsencrypt:/etc/letsencrypt:ro
+      - ./.well-known:/var/.well-known:ro
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - webnet
+
+  cust_front:
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    build:
+      context: app/front
+      dockerfile: Dockerfile
+    container_name: cust_front
+    depends_on:
+      - cust_api
+    volumes:
+      - ./app/front/:/app/
+      - /app/node_modules/
+    restart: always
+    networks:
+      - webnet
+    ports:
+      - 3000:3000
+  cust_api:
+    build:
+        context: app/api
+        dockerfile: Dockerfile
+    container_name: cust_api
+    volumes:
+      - ./app/api/src:/app
+  #  depends_on:
+  #    - cust_db
+    restart: always
+    environment:
+      - ENV=develop
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - webnet
+    # ports:
+    #   - 8080:80
+  #cust_db:
+  #  build:
+  #    context: app/db
+  #    dockerfile: Dockerfile
+  #  container_name: cust_db
+  #  environment:
+  #    MYSQL_DATABASE: landmark
+  #    MYSQL_USER: api
+  #    MYSQL_PASSWORD: gS73DBfJ
+  #    MYSQL_ROOT_PASSWORD: P1fz2VQz
+  #  volumes:
+  #    - ./app/db/initdb.d:/docker-entrypoint-initdb.d
+  #  networks:
+  #    - webnet
+  #  ports:
+  #    - 3306:3306
+
+networks:
+  webnet:
