@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Common\CustomResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CuToken\CheckTokenRequest;
-use App\Http\Requests\CuToken\CuTokenRequest;
 use App\Services\AuthService;
 use App\Services\CuUserService;
 use App\Services\CuUserTokenService;
@@ -13,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Request;
 
 class CuTokenController extends Controller
 {
@@ -50,40 +49,11 @@ class CuTokenController extends Controller
     }
 
     /**
-     * Reset password
-     *
-     * @param CuTokenRequest $request
-     * @return JsonResponse
-     */
-    public function sendOnetimeToken(CuTokenRequest $request)
-    {
-        try {
-            $message = trans('attributes.success');
-            $response = $this->customResponse->getSuccessResponse([], CustomResponse::RESPONSE_TOTAL_HIDE, $message);
-
-            Log::debug('Validate your email address');
-            $cuUser = $this->cuUserService->checkCuUserByMaillAddress($request->mail_address);
-            if (!$cuUser) {
-                Log::error('The email address does not exist on the system. \$cuUser='. json_encode($cuUser, JSON_UNESCAPED_UNICODE));
-                return $this->customResponse->sendResponse($response);
-            }
-
-            Log::debug('Create a new one-time token and send an email to your customers.');
-            $result = $this->cuTokenService->createToken($cuUser->user_id, $cuUser->customer_user_name, $request->mail_address);
-
-        } catch (\Exception $e) {
-            Log::error($e);
-            $response = (new CustomResponse())->getErrorResponse([], trans("attributes.500_internal_server_error"), Response::HTTP_INTERNAL_SERVER_ERROR, "");
-        }
-        return $this->customResponse->sendResponse($response);
-    }
-
-    /**
      * Check the one-time Token 
-     * @param CheckTokenRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function checkToken ( CheckTokenRequest $request )
+    public function checkToken ( Request $request )
     {
         DB::beginTransaction();
         try {
