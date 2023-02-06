@@ -5,7 +5,6 @@ import {faBell, faHome, faSearch} from "@fortawesome/free-solid-svg-icons";
 import LinkName from "../../constants/link_name";
 import logo from "../../assets/images/login.svg";
 import {getUserFromAccessToken} from "../../helpers/helpers";
-import SearchProject from "../search_project";
 import {Trans} from "react-i18next";
 import {useLocation} from "react-router";
 import Header from "./header";
@@ -100,7 +99,6 @@ function MenuMobile(props) {
                         <Trans i18nKey="TITLE_SEARCH"/>
                     </h4>
 
-                    <SearchProject />
                 </div>
             </div>
 

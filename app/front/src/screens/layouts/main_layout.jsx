@@ -10,17 +10,13 @@ import '../../assets/scss/common/_slick_slider_override.scss';
 import Header from './header';
 import MenuMobile from "./menu-mobile";
 import Footer from './footer';
-import branchListApi from "../../api/branchListApi";
 import Common from "../../constants/common";
 import {clearLoginData, getInfoUserLogin, getUserFromAccessToken, replaceString} from "../../helpers/helpers";
 import LinkName from "../../constants/link_name";
-import DialogReload from "../modal/dialog_reload";
 import {Trans, useTranslation} from "react-i18next";
 import {Button, Container, Modal} from "react-bootstrap";
 import Breadcrumb from "./breadcrumb"
 import MainSidebar from "./main_sidebar";
-import detailRequestApi from "../../api/detailRequestApi";
-import listNotificationApi from "../../api/listNotificationApi";
 
 function MainLayout(props) {
     const [t] = useTranslation();
@@ -72,37 +68,6 @@ function MainLayout(props) {
         LinkName.RE_SETTING_PASSWORD_SEND_URL_COMPLETE,
         LinkName.RE_SETTING_PASSWORD_SEND_URL,
     ]
-    const checkShowButtonBackToBranchList = () => {
-        branchListApi.get(headersConfig).then((response) => {
-
-            if (response.data.status === Common.HTTP_STATUS.OK) {
-                if (response.data.data.length > 1) {
-                    setShowBranchList(true);
-                } else {
-                    setShowBranchList(false);
-                }
-            }
-            else{
-                setErrorText(t('WCG_9000_getBranchListError'));
-                toggleModalDialogError();
-            }
-
-        }, (error) => {
-
-            if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
-                clearLoginData();
-                props.history.push(LinkName.LOGIN);
-            } else if(error.response && error.response.status === Common.HTTP_STATUS.FORBIDDEN){
-                setErrorText(t('WCG_9000_getDataAccess'));
-                toggleModalDialogError();
-            } else {
-                setErrorText(t('WCG_9000_getBranchListError'));
-                toggleModalDialogError();
-            }
-
-        });
-
-    }
 
     useEffect( () => {
         let isMounted = true;
@@ -111,7 +76,6 @@ function MainLayout(props) {
 
             if( isUserRole ) {
                 if(!screensNotCallApi.includes(pathname)){
-                    checkShowButtonBackToBranchList();
                 }
             } else {
                 setShowBranchList(false);
@@ -139,82 +103,6 @@ function MainLayout(props) {
     const [isTotalInfoUnread, setTotalInfoUnread] = useState(0);
     const checkInfoUnread = [0];
 
-    useEffect(() => {
-        let isMounted = true;
-
-        if ( isMounted ) {
-            if ( Object.keys(loginUserInfo).length > 0 && props.hasMainSidebar ) {
-                detailRequestApi.getCustomerOption({}, headersConfig).then((response) => {
-                    const status = response.status;
-                    const data = response.data.data;
-
-                    if ( status === Common.HTTP_STATUS.OK ) {
-                        sessionStorage.setItem("approval", data.approval);
-                    }
-
-                }, (error) => {
-                    const statusError = error.response.status;
-
-                    if ( statusError === Common.HTTP_STATUS.UNAUTHORIZED ) {
-                        clearLoginData();
-                        props.history.push(LinkName.LOGIN);
-                    } else if ( statusError === Common.HTTP_STATUS.FORBIDDEN ) {
-                        setStatusError(true);
-                        setNameActionError( t('WEG_08_0202_get_data_by_auth') );
-                    } else {
-                        setStatusError(true);
-                        setNameActionError( replaceString(t('CMN0006-W'), [t('WEG_07_0101_text_error_applications')]) );
-                    }
-                })
-            }
-            if ( Object.keys(loginUserInfo).length > 0 && Object.keys(userData).length > 0 && !screensNotCallApi.includes(pathname)) {
-                listNotificationApi.getListNotification({
-                    params: {
-                        display_header: '',
-                        display_advertisement: '',
-                        page: '',
-                        limit: '',
-                        read: 0,
-                        unread: 1
-                    }
-                }, headersConfig).then((response) => {
-                    const status = response.status;
-                    const data = response.data.data;
-
-                    if ( status === Common.HTTP_STATUS.OK && data ) {
-                        const resultsInfoUnread = data.filter(item => {
-                            return checkInfoUnread.includes( item.already_read );
-                        });
-
-                        if ( resultsInfoUnread.length > 0 ) {
-                            setTotalInfoUnread(resultsInfoUnread.length);
-                        }
-
-                    }
-
-                }, (error) => {
-
-                    if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
-                        clearLoginData();
-                        props.history.push(LinkName.LOGIN);
-                    } else if (error.response && error.response.status === Common.HTTP_STATUS.FORBIDDEN) {
-                        setStatusError(true);
-                        setNameActionError( t('WEG_08_0202_get_data_by_auth') );
-                    } else {
-                        setStatusError(true);
-                        setNameActionError( replaceString(t('CMN0006-W'), [t('TEXT_ERROR_GET_NUMBER_NOTIFICATIONS')]) );
-                    }
-
-                })
-
-                if ( !pathNameNotShow.includes( location.pathname ) ) {
-                    setShowMenu(true);
-                }
-            }
-        }
-
-        return () => { isMounted = false };
-    }, [])
 
     useEffect(() => {
         let isMounted = true;
@@ -300,14 +188,6 @@ function MainLayout(props) {
                     isShowMenu={isShowMenu}
                 />
             )}
-
-            <DialogReload
-                modal={modalDialogError}
-                toggle={toggleModalDialogError}
-                text={errorText}
-                status={false}
-                history={props.history}
-            />
 
             { /* Modal dialog error */ }
             <Modal show={isStatusError} onHide={handleCloseModalError} className="modal-custom-center">

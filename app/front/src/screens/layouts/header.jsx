@@ -10,7 +10,6 @@ import ImageIconHelp from "../../assets/images/icon/icon-help.png";
 import ImageIconFAQ from "../../assets/images/icon/icon-faq.png";
 import ImageIconBell from "../../assets/images/icon/icon-bell.png";
 import LinkName from "../../constants/link_name";
-import SearchProject from "../search_project";
 import {Container} from "react-bootstrap";
 
 function Header(props) {
@@ -49,9 +48,7 @@ function Header(props) {
                             </div>
 
                             <div className="search-box d-none d-lg-flex align-items-lg-center">
-                                {( isUserName !== null && isShowMenu ) && (
-                                    <SearchProject />
-                                )}
+                                {( isUserName !== null && isShowMenu ) }
                             </div>
 
                             <div className="right-box">
