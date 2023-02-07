@@ -39,6 +39,11 @@
     }
 
     .right-box {
+
+      .nav-link {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .user-nav {
         @include flexbox();
 
@@ -256,7 +261,6 @@
 
         .nav-link {
           @include flexbox();
-          align-items: flex-start;
 
           li a{
             font-size: 10px;
