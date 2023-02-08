@@ -96,106 +96,97 @@
     }
   }
 
-  &__form {
+  &__form {   
     padding: 27px 12px 40px;
     border-radius: 6px;
     background-color: $background-modal-grey;
 
-    .logo-login {
-      margin-bottom: 18px;
-      img {
-        width: 144px;
-      }
-    }
-
-    .form-warp {
-      max-width: 322px;
-      margin: 0 auto;
-
-      .group-box {
-        margin-bottom: 8px;
-      }
-
-      .form-group {
-        margin-bottom: 9px;
-
-        &:last-child {
-          margin-bottom: 0;
+      .logo-login {
+        margin-bottom: 18px;
+        img {
+          width: 144px;
         }
       }
 
-      .form-control {
-        padding: 17px 12px 18px;
-        border-radius: 6px;
-        border: 1px solid rgba(98, 98, 99, 0.5);
+      .form-warp {
+        max-width: 322px;
+        margin: 0 auto;
+
+        .group-box {
+          margin-bottom: 8px;
+        }
+
+        .form-group {
+          margin-bottom: 9px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        .form-control {
+          padding: 17px 12px 18px;
+          border-radius: 6px;
+          border: 1px solid rgba(98, 98, 99, 0.5);
+        }
+      }
+
+      @media (max-width: 991px) {
+        padding: 0;
+        background-color: transparent;
+
+        .logo-login {
+          display: none;
+        }
+
+        .form-warp {
+          max-width: 100%;
+        }
+      }
+    }
+
+    &__reset-pass {    
+
+      text-align: center;
+      margin-top: 15px;
+      
+      a {
+        display: inline-block;
+        font-size: 12px;
+        color: $color-link;
+        text-decoration: underline;
+
+        &:hover {
+          color: $color-title;
+        }
+      }
+    }
+
+    .invalid-feedback {
+      font-size: 100%;
+      display: block;
+    }
+
+    .action-box-btn {
+      .btn {
+        padding: 22px 12px 16px;
+        font-size: 12px;
+        border-radius: 25px !important;
+        border: none;
+&:active {
+          background-color: $background-color-main-active !important;
+        }
+
+        @media (max-width: 991px) {
+          border-radius: 0;
+        }
       }
     }
 
     @media (max-width: 991px) {
-      padding: 0;
-      background-color: transparent;
-
-      .logo-login {
+      .breadcrumb-box {
         display: none;
       }
-
-      .form-warp {
-        max-width: 100%;
-      }
     }
   }
 
-  &__reset-pass {
-<<<<<<< app/front/src/assets/scss/screens/login.scss
-    text-align: center;
-    margin-top: 15px;
-=======
-    text-align: right;
-    margin-bottom: 22px;
->>>>>>> app/front/src/assets/scss/screens/login.scss
-
-    a {
-      display: inline-block;
-      font-size: 12px;
-      color: $color-link;
-      text-decoration: underline;
-
-      &:hover {
-        color: $color-title;
-      }
-    }
-  }
-
-  .invalid-feedback {
-    font-size: 100%;
-    display: block;
-  }
-
-  .action-box-btn {
-    .btn {
-      padding: 22px 12px 16px;
-      font-size: 12px;
-      border-radius: 25px !important;
-      border: none;
-<<<<<<< app/front/src/assets/scss/screens/login.scss
-
-=======
-      background-color: $background-color-main;
-      border: 0;
->>>>>>> app/front/src/assets/scss/screens/login.scss
-      &:active {
-        background-color: $background-color-main-active !important;
-      }
-
-      @media (max-width: 991px) {
-        border-radius: 0;
-      }
-    }
-  }
-
-  @media (max-width: 991px) {
-    .breadcrumb-box {
-      display: none;
-    }
-  }
-}
