@@ -3,7 +3,7 @@
 
 .login-page {
   .login-content {
-    max-width: 710px;
+    max-width: 910px;
     margin: 0 auto;
   }
 
@@ -23,14 +23,12 @@
 
     .list {
       margin-bottom: 12px;
-      margin-top: 20px;
-      border: grey 1px solid;
-      border-radius: 10px;
+      padding-left: 30px;
 
       ul {
         list-style: none;
         margin: 0;
-        padding: 10px 0px 10px 10px;
+        padding: 0;
 
         li {
           margin-bottom: 8px;
@@ -93,16 +91,30 @@
   &__box {
     @media (max-width: 991px) {
       padding: 12px 12px 30px 12px;
+      background-color: $background-modal-grey;
+      border-radius: 6px;
     }
   }
 
   &__form {
+<<<<<<< app/front/src/assets/scss/screens/login.scss
     padding: 27px 70px 40px 70px;
     border: 1px solid grey;
 
     .text-login {
       font-size: 30px;
       margin-bottom: 50px;
+=======
+    padding: 27px 12px 40px;
+    border-radius: 6px;
+    background-color: $background-modal-grey;
+
+    .logo-login {
+      margin-bottom: 18px;
+      img {
+        width: 144px;
+      }
+>>>>>>> app/front/src/assets/scss/screens/login.scss
     }
 
     .form-warp {
@@ -129,6 +141,7 @@
     }
 
     @media (max-width: 991px) {
+      padding: 0;
       background-color: transparent;
 
       .logo-login {
@@ -142,13 +155,19 @@
   }
 
   &__reset-pass {
+<<<<<<< app/front/src/assets/scss/screens/login.scss
     text-align: center;
     margin-top: 15px;
+=======
+    text-align: right;
+    margin-bottom: 22px;
+>>>>>>> app/front/src/assets/scss/screens/login.scss
 
     a {
       display: inline-block;
-      font-size: 15px;
-      color: $color-title;
+      font-size: 12px;
+      color: $color-link;
+      text-decoration: underline;
 
       &:hover {
         color: $color-title;
@@ -163,9 +182,16 @@
 
   .action-box-btn {
     .btn {
-      font-size: 15px;
+      padding: 22px 12px 16px;
+      font-size: 12px;
+      border-radius: 25px !important;
       border: none;
+<<<<<<< app/front/src/assets/scss/screens/login.scss
 
+=======
+      background-color: $background-color-main;
+      border: 0;
+>>>>>>> app/front/src/assets/scss/screens/login.scss
       &:active {
         background-color: $background-color-main-active !important;
       }

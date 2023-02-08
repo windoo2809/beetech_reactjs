@@ -4,6 +4,7 @@
 .site-header {
   height: 60px;
   color: #ffffff;
+  background-color: $background-color-main;
 
   .container {
     height: 100%;
@@ -17,8 +18,7 @@
       padding: 0;
 
       a {
-        color: black;
-        font-size: 14px;
+        color: #ffffff;
       }
     }
 
@@ -28,7 +28,7 @@
       @include flexbox();
       @include align-items(center);
       img {
-        width: 200px;
+        width: 180px;
       }
     }
 
@@ -107,18 +107,16 @@
 
       .nav-link {
         @include align-items(center);
-        grid-template-columns: repeat(2, 1fr);
 
         @media (min-width: 480px) {
-          margin: auto;
           display: grid;
-          grid-template-columns: repeat(2, auto);
+          grid-gap: 16px;
+          grid-template-columns: repeat(3, 1fr);
         }
 
         li {
           position: relative;
           text-align: center;
-          padding-left: 10px;
 
           &.notification {
             .count-info {
@@ -198,12 +196,12 @@
     @media (min-width: 480px) {
       display: grid;
       grid-gap: 16px;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: auto 1fr auto;
 
       .right-box {
         display: grid;
         grid-gap: 16px;
-        grid-template-columns: arepeat(1, 1fr);
+        grid-template-columns: auto 1fr auto;
 
         .user-nav {
           &__name {
@@ -225,6 +223,12 @@
       grid-template-columns: 1fr repeat(2, auto);
 
       .right-box {
+        grid-template-columns: 1fr repeat(2, auto);
+
+        .nav-link {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
         .user-nav {
           @include justify-content(flex-end);
         }
@@ -260,10 +264,11 @@
         }
 
         .nav-link {
+          grid-gap: 10px;
           @include flexbox();
 
-          li a{
-            font-size: 10px;
+          li {
+            @include flex(0 0 24px);
           }
         }
       }
@@ -433,7 +438,8 @@
   .site-header {
     .logo {
       .header-logo {
-        width: 100px;
+        content: url("../../../images/logo-white.svg");
+        width: 50px;
         height: auto;
       }
     }
