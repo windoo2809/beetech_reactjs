@@ -33,8 +33,8 @@ function App() {
             <AppContext.Provider value={appStateInfo}>
                 <Suspense fallback={<PageLoader />}>
                     <Switch>
-                        <Route exact path={LinkName.LOGIN} component={Login} />
                         <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
+                        <Route exact path={LinkName.LOGIN} component={Login} />
                         <ProtectedRoute component={StaticNotFound} />
                     </Switch>
                 </Suspense>
