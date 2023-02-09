@@ -3,38 +3,43 @@ import axios from "axios";
 import { Container } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import LinkName from "../constants/link_name";
 import "../assets/scss/screens/login.scss";
 import "../assets/scss/screens/layouts/header_ver_2.scss";
 import logo from "../assets/images/logo-black.svg";
 
-function Login() {
+const schema = yup
+  .object()
+  .shape({
+    loginID: yup.string().required(),
+    password: yup.string().required(),
+    customer_login_id: yup.string().required(),
+  })
+  .required();
+
+function Login(props) {
   const [t] = useTranslation();
-  const [loginID, setLoginID] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleLoginID = (e) => {
-    setLoginID(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleApiLogin = (e) => {
-    console.log({ loginID, password });
-    e.preventDefault();
-    axios.post("https://reqres.in/api/login", {
-      email: loginID,
-      password: password,
-    })
-      .then((res) => {
-        console.log(res);
+  const onSubmit = async data => {
+    try {
+      axios.post("https://reqres.in/api/login", {
+        email: data.loginID,
+        password: data.password,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((data) => {
+          console.log(data)
+        })
+    } catch (data) {
+      console.error(data);
+    }
   };
+
   return (
     <>
       <header>
@@ -42,7 +47,7 @@ function Login() {
           <Container>
             <div className="site-header__box">
               <div className="logo">
-                <a href="#">
+                <a href={LinkName.LOGIN}>
                   <img src={logo} alt="logo" className="header-logo" />
                 </a>
               </div>
@@ -102,19 +107,19 @@ function Login() {
                     </div>
                   </div>
                   <div className="form-wrap">
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="group-box">
                         <div className="form-group">
                           <div className="form-group__control">
                             <div className="reset-box">
                               <input
-                                type="text"
-                                value={loginID}
-                                onChange={handleLoginID}
+                                type="email"
+                                {...register("loginID")}
                                 className="form-group__field form-control"
                                 name="loginID"
-                                placeholder={t('WEG_01_0100_enterLoginID')}
+                                placeholder={t("WEG_01_0100_enterLoginID")}
                               />
+
                             </div>
                           </div>
                         </div>
@@ -123,9 +128,12 @@ function Login() {
                             <div className="reset-box">
                               <input
                                 type="text"
+                                {...register("customer_login_id")}
                                 className="form-group__field form-control"
                                 name="customer_login_id"
-                                placeholder={t('WEG_01_0100_placeholder_customer_login_id')}
+                                placeholder={t(
+                                  "WEG_01_0100_placeholder_customer_login_id"
+                                )}
                               />
                             </div>
                           </div>
@@ -135,21 +143,19 @@ function Login() {
                             <div className="reset-box">
                               <input
                                 type="password"
-                                value={password}
-                                onChange={handlePassword}
+                                {...register("password")}
                                 className="form-group__field form-control"
                                 name="password"
-                                placeholder={t('WEG_01_0100_enterLoginPassword')}
+                                placeholder={t(
+                                  "WEG_01_0100_enterLoginPassword"
+                                )}
                               />
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="action-box-btn">
-                        <button
-                          onClick={handleApiLogin}
-                          className="btn btn-lg btn-primary w-100"
-                        >
+                        <button className="btn btn-lg btn-primary w-100">
                           <strong>
                             <Trans i18nKey="WEG_01_0100_login" />
                           </strong>
