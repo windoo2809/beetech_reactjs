@@ -5,24 +5,34 @@ import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ErrorMessage } from '@hookform/error-message';
 import * as yup from 'yup';
 import LinkName from "../constants/link_name";
 import "../assets/scss/screens/login.scss";
 import "../assets/scss/screens/layouts/header_ver_2.scss";
 import logo from "../assets/images/logo-black.svg";
 
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/
 const schema = yup
   .object()
   .shape({
-    loginID: yup.string().required(),
-    password: yup.string().required(),
-    customer_login_id: yup.string().required(),
+    loginID: yup
+      .string()
+      .required(<Trans i18nKey="VALID_014" />)
+      .email(<Trans i18nKey="VALID_017" />),
+    customer_login_id: yup
+      .string()
+      .required(<Trans i18nKey="CUSTOMER_ID_LOGIN" />),
+    password: yup
+      .string()
+      .required(<Trans i18nKey="VALID_018" />)
+      .matches(passwordRegex, 'パスワードは8-32文字の英数字と記号で入力してください。')
   })
-  .required();
+  .required('abc');
 
 function Login(props) {
   const [t] = useTranslation();
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -113,13 +123,17 @@ function Login(props) {
                           <div className="form-group__control">
                             <div className="reset-box">
                               <input
-                                type="email"
+                                type="text"
                                 {...register("loginID")}
                                 className="form-group__field form-control"
                                 name="loginID"
                                 placeholder={t("WEG_01_0100_enterLoginID")}
                               />
-
+                              <ErrorMessage
+                                errors={errors}
+                                name="loginID"
+                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
+                              />
                             </div>
                           </div>
                         </div>
@@ -135,6 +149,11 @@ function Login(props) {
                                   "WEG_01_0100_placeholder_customer_login_id"
                                 )}
                               />
+                              <ErrorMessage
+                                errors={errors}
+                                name="customer_login_id"
+                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
+                              />
                             </div>
                           </div>
                         </div>
@@ -149,6 +168,11 @@ function Login(props) {
                                 placeholder={t(
                                   "WEG_01_0100_enterLoginPassword"
                                 )}
+                              />
+                              <ErrorMessage
+                                errors={errors}
+                                name="password"
+                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
                               />
                             </div>
                           </div>
