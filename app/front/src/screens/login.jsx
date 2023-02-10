@@ -4,47 +4,33 @@ import { Container } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { ErrorMessage } from '@hookform/error-message';
-import * as yup from 'yup';
 import LinkName from "../constants/link_name";
+import validation from "../constants/validation";
 import "../assets/scss/screens/login.scss";
 import "../assets/scss/screens/layouts/header_ver_2.scss";
 import logo from "../assets/images/logo-black.svg";
-
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,32}$/
-const schema = yup
-  .object()
-  .shape({
-    loginID: yup
-      .string()
-      .required(<Trans i18nKey="VALID_014" />)
-      .email(<Trans i18nKey="VALID_017" />),
-    customer_login_id: yup
-      .string()
-      .required(<Trans i18nKey="CUSTOMER_ID_LOGIN" />),
-    password: yup
-      .string()
-      .required(<Trans i18nKey="VALID_018" />)
-      .matches(passwordRegex, 'パスワードは8-32文字の英数字と記号で入力してください。')
-  })
-  .required('abc');
+import loginApi from "../api/loginApi";
 
 function Login(props) {
   const [t] = useTranslation();
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    shouldUseNativeValidation: true,
   });
 
-  const onSubmit = async data => {
+  const onSubmit = async e => {
     try {
-      axios.post("https://reqres.in/api/login", {
-        email: data.loginID,
-        password: data.password,
-      })
-        .then((data) => {
-          console.log(data)
+      await loginApi
+        .postLogin({
+          email: e.loginID,
+          password: e.password,
         })
+        .then((data) => {
+          console.log(data);
+        });
     } catch (data) {
       console.error(data);
     }
@@ -64,14 +50,10 @@ function Login(props) {
               <div className="right-box">
                 <ul className="nav-link">
                   <li>
-                    <a href={LinkName.FORM_MAIL}>
-                      <Trans i18nKey="FORM_MAIL" />
-                    </a>
+                    <a href={LinkName.FORM_MAIL}>{t("FORM_MAIL")}</a>
                   </li>
                   <li>
-                    <a href={LinkName.FAQ}>
-                      <Trans i18nKey="FAQ" />
-                    </a>
+                    <a href={LinkName.FAQ}>{t("FAQ")}</a>
                   </li>
                 </ul>
               </div>
@@ -104,7 +86,7 @@ function Login(props) {
               </div>
               <div className="action-box">
                 <a href={LinkName.LIST_NOTIFICATION}>
-                  <Trans i18nKey="WEG_01_0100_text_link_see_list" />
+                  {t("WEG_01_0100_text_link_see_list")}
                 </a>
               </div>
             </div>
@@ -113,7 +95,7 @@ function Login(props) {
                 <div className="login-page__form">
                   <div className="text-login text-center">
                     <div className="d-inline-block">
-                      <Trans i18nKey="WEG_01_0100_login" />
+                      {t("WEG_01_0100_login")}
                     </div>
                   </div>
                   <div className="form-wrap">
@@ -124,16 +106,21 @@ function Login(props) {
                             <div className="reset-box">
                               <input
                                 type="text"
-                                {...register("loginID")}
+                                {...register("loginID", {
+                                  required: t("VALID_014"),
+                                  pattern: {
+                                    value: validation.EMAIL.PATTERN,
+                                    message: t("VALID_015"),
+                                  },
+                                })}
                                 className="form-group__field form-control"
-                                name="loginID"
                                 placeholder={t("WEG_01_0100_enterLoginID")}
                               />
-                              <ErrorMessage
-                                errors={errors}
-                                name="loginID"
-                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
-                              />
+                              {errors.loginID && (
+                                <p className="text-danger font-weight-bold">
+                                  {errors.loginID.message}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -142,18 +129,19 @@ function Login(props) {
                             <div className="reset-box">
                               <input
                                 type="text"
-                                {...register("customer_login_id")}
+                                {...register("customer_login_id", {
+                                  required: t("CUSTOMER_ID_LOGIN"),
+                                })}
                                 className="form-group__field form-control"
-                                name="customer_login_id"
                                 placeholder={t(
                                   "WEG_01_0100_placeholder_customer_login_id"
                                 )}
                               />
-                              <ErrorMessage
-                                errors={errors}
-                                name="customer_login_id"
-                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
-                              />
+                              {errors.customer_login_id && (
+                                <p className="text-danger font-weight-bold">
+                                  {errors.customer_login_id.message}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -162,18 +150,23 @@ function Login(props) {
                             <div className="reset-box">
                               <input
                                 type="password"
-                                {...register("password")}
+                                {...register("password", {
+                                  required: t("VALID_018"),
+                                  // pattern: {
+                                  //   value: validation.PASSWORD.PATTERN,
+                                  //   message: t("VALID_019"),
+                                  // },
+                                })}
                                 className="form-group__field form-control"
-                                name="password"
                                 placeholder={t(
                                   "WEG_01_0100_enterLoginPassword"
                                 )}
                               />
-                              <ErrorMessage
-                                errors={errors}
-                                name="password"
-                                render={({ message }) => <p className="text-danger font-weight-bold">{message}</p>}
-                              />
+                              {errors.password && (
+                                <p className="text-danger font-weight-bold">
+                                  {errors.password.message}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
