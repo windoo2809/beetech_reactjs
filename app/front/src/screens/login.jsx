@@ -21,19 +21,20 @@ function Login(props) {
     shouldUseNativeValidation: true,
   });
 
-  const onSubmit = async e => {
-    try {
-      await loginApi
-        .postLogin({
-          email: e.loginID,
-          password: e.password,
-        })
-        .then((data) => {
+  const onSubmit = e => {
+    loginApi
+      .postLogin({
+        email: e.loginID,
+        password: e.password,
+      })
+      .then(
+        (data) => {
           console.log(data);
-        });
-    } catch (data) {
-      console.error(data);
-    }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   return (
@@ -152,10 +153,10 @@ function Login(props) {
                                 type="password"
                                 {...register("password", {
                                   required: t("VALID_018"),
-                                  // pattern: {
-                                  //   value: validation.PASSWORD.PATTERN,
-                                  //   message: t("VALID_019"),
-                                  // },
+                                  pattern: {
+                                    value: validation.PASSWORD.PATTERN,
+                                    message: t("sai"),
+                                  },
                                 })}
                                 className="form-group__field form-control"
                                 placeholder={t(
