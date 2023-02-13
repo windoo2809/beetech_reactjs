@@ -98,6 +98,7 @@ const msgJp = {
     mess_project_completion_date_after_start_date: '工事完了日は、工事開始日よりも後の日付を入力してください',
     mess_csv_error_format: 'CSVファイルのフォーマットに誤りがあります。CSVファイルの内容を修正して、改めて登録してください。',
     
+    CUSTOMER_ID_LOGIN: '会社 ID が必要です。'
 };
 
 export default msgJp;
