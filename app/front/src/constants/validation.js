@@ -1,5 +1,6 @@
 export default {
     INPUT_MAX_LENGTH: 255,
+    INPUT_EMAIL_MAX_LENGTH: 2408,
     TEXTAREA_MAX_LENGTH: 200000,
     TEXT: {
         MAX_LENGTH: 1,

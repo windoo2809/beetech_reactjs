@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Container } from "react-bootstrap";
-import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import LinkName from "../constants/link_name";
@@ -21,7 +19,7 @@ function Login(props) {
     shouldUseNativeValidation: true,
   });
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     loginApi
       .postLogin({
         email: e.loginID,
@@ -153,10 +151,6 @@ function Login(props) {
                                 type="password"
                                 {...register("password", {
                                   required: t("VALID_018"),
-                                  pattern: {
-                                    value: validation.PASSWORD.PATTERN,
-                                    message: t("sai"),
-                                  },
                                 })}
                                 className="form-group__field form-control"
                                 placeholder={t(
@@ -174,14 +168,12 @@ function Login(props) {
                       </div>
                       <div className="action-box-btn">
                         <button className="btn btn-lg btn-primary w-100">
-                          <strong>
-                            <Trans i18nKey="WEG_01_0100_login" />
-                          </strong>
+                          <strong>{t("WEG_01_0100_login")}</strong>
                         </button>
                       </div>
                       <div className="login-page__reset-pass">
                         <a href={LinkName.SEND_URL_RE_SETTING_PASSWORD}>
-                          <Trans i18nKey="WEG_01_0100_forgotPassword" />
+                          {t("WEG_01_0100_forgotPassword")}
                         </a>
                       </div>
                     </form>
