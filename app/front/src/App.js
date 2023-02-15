@@ -36,7 +36,7 @@ function App() {
                     <Switch>
                         <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
                         <Route exact path={LinkName.LOGIN} component={Login} />
-                        <Route exact path={LinkName.FORM_MAIL} component={FormMail} />
+                        <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
                         <ProtectedRoute component={StaticNotFound} />
                     </Switch>
                 </Suspense>

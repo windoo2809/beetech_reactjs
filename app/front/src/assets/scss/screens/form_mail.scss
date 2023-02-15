@@ -1,0 +1,109 @@
+@import "../common/variables";
+@import "../common/mixins";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+head {
+  display: none;
+}
+body {
+  font-family: "NotoSansJP";
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.template-form-mail {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 60%;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr;
+  }
+
+  .title-breadcrumb {
+    padding-left: 3%;
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .font-weight-bold {
+    font-weight: 700 !important;
+  }
+
+  .form-mail {
+    padding: 0 3%;
+
+    form {
+      display: block;
+      margin-top: 0em;
+
+      .form-group {
+        margin-bottom: 16px;
+        display: grid;
+        grid-template-columns: 116px 1fr;
+        align-items: center;
+        @media (max-width: 767px) {
+          grid-template-columns: 1fr;
+        }
+        &__check {
+          .form-check {
+            position: relative;
+            display: block;
+            padding-left: 1.2rem;
+          }
+          .form-check-input {
+            cursor: pointer;
+            top: 3px;
+          }
+        }
+
+        .text-error {
+          height: 0;
+          overflow: hidden;
+          transition: all 0.4s ease-in-out;
+          color: #ff0000;
+          margin: 0.5rem 0 0 0;
+        }
+        .text-error {
+          height: 100%;
+        }
+      }
+
+      .form-control {
+        padding: 8 16px;
+        height: auto;
+        border-color: #eee;
+      }
+
+      .action-box {
+        text-align: right;
+
+        .btn-primary {
+          border: 0;
+          padding: 8px;
+          margin: auto;
+          margin-right: 50px;
+          font-size: 1.2rem;
+          width: 100px;
+
+          @media (max-width: 575px) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

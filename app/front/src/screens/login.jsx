@@ -5,9 +5,8 @@ import { useForm } from "react-hook-form";
 import LinkName from "../constants/link_name";
 import validation from "../constants/validation";
 import "../assets/scss/screens/login.scss";
-import "../assets/scss/screens/layouts/header_ver_2.scss";
-import logo from "../assets/images/logo-black.svg";
 import loginApi from "../api/loginApi";
+import HeaderNew from "./layouts/header_new";
 
 function Login(props) {
   const [t] = useTranslation();
@@ -37,29 +36,7 @@ function Login(props) {
 
   return (
     <>
-      <header>
-        <div className="site-header">
-          <Container>
-            <div className="site-header__box">
-              <div className="logo">
-                <a href={LinkName.LOGIN}>
-                  <img src={logo} alt="logo" className="header-logo" />
-                </a>
-              </div>
-              <div className="right-box">
-                <ul className="nav-link">
-                  <li>
-                    <a href={LinkName.FORM_MAIL}>{t("FORM_MAIL")}</a>
-                  </li>
-                  <li>
-                    <a href={LinkName.FAQ}>{t("FAQ")}</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </Container>
-        </div>
-      </header>
+      <HeaderNew />
       <div className="sticky-footer not-login">
         <div className="page-template login-page">
           <Container>
