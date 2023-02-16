@@ -117,7 +117,6 @@
         li {
           position: relative;
           text-align: center;
-          padding-left: 10px;
 
           &.notification {
             .count-info {
@@ -221,7 +220,7 @@
     }
 
     @media (min-width: 480px) and (max-width: 991px) {
-      grid-template-columns: 1fr repeat(2, auto);
+      grid-template-columns: 1fr repeat(1, auto);
 
       .right-box {
         .user-nav {
@@ -235,7 +234,7 @@
       justify-content: space-between;
 
       .logo {
-        width: 90px;
+        width: 100px;
         flex: 0 0 auto;
       }
 
@@ -262,7 +261,7 @@
           @include flexbox();
 
           li a {
-            font-size: 10px;
+            font-size: 8px;
           }
         }
       }

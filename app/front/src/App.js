@@ -5,6 +5,7 @@ import PageLoader from './components/page_loader';
 import LinkName from './constants/link_name';
 import AppContext from './context/appContext';
 const Login = lazy(() => import('./screens/login.jsx'));
+const FormMail = lazy(() => import('./screens/form_mail.jsx'));
 const StaticNotFound = lazy(() => import('./screens/notfound'));
 
 localStorage.setItem('i18nextLng', 'jp');
@@ -35,6 +36,7 @@ function App() {
                     <Switch>
                         <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
                         <Route exact path={LinkName.LOGIN} component={Login} />
+                        <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
                         <ProtectedRoute component={StaticNotFound} />
                     </Switch>
                 </Suspense>
