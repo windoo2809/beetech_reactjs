@@ -14,13 +14,12 @@ function FormMail() {
   const [t] = useTranslation();
   const [dialogSendMail, setDialogSendMail] = useState(false);
   const [dialogSendMailSuccess, setDialogSendMailSuccess] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassowrd] = useState("");
 
   const {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm({
     shouldUseNativeValidation: true,
@@ -30,15 +29,15 @@ function FormMail() {
     setDialogSendMail(true);
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     formMail
       .postMail({
-        email,
-        password,
+        email: getValues("mail_address"),
+        password: getValues("content"),
       })
       .then(
-        (e) => {
-          console.log(e);
+        (data) => {
+          console.log(data);
         },
         (error) => {
           console.log(error);
@@ -94,13 +93,12 @@ function FormMail() {
                           })}
                           placeholder={t("PLACEHOLDER_MAIL_NAME")}
                         />
-                        <div></div>
-                        {errors.name && (
-                          <p className="text-error d-block">
-                            {errors.name.message}
-                          </p>
-                        )}
                       </div>
+                      {errors.name && (
+                        <p className="text-error d-block">
+                          {errors.name.message}
+                        </p>
+                      )}
                       <div className="form-group">
                         <label>{t("FROM_MAIL_LABEL_COMPANY_NAME")}</label>
                         <input
@@ -118,13 +116,12 @@ function FormMail() {
                           className="form-control"
                           placeholder={t("PLACEHOLDER_MAIL_COMPANY_NAME")}
                         />
-                        <div></div>
-                        {errors.company_name && (
-                          <p className="text-error d-block">
-                            {errors.company_name.message}
-                          </p>
-                        )}
                       </div>
+                      {errors.company_name && (
+                        <p className="text-error d-block">
+                          {errors.company_name.message}
+                        </p>
+                      )}
                       <div className="form-group">
                         <label>{t("FROM_MAIL_LABEL_EMAIL")}</label>
                         <input
@@ -137,20 +134,18 @@ function FormMail() {
                             },
                             maxLength: {
                               value: validation.INPUT_EMAIL_MAX_LENGTH,
-                              message: replaceString(t("VALID_049"), ["2408"]),
+                              message: replaceString(t("VALID_049"), ["2048"]),
                             },
                           })}
-                          onChange={(e) => setEmail(e.target.value)}
                           className="form-control"
                           placeholder={t("PLACEHOLDER_MAIL_ADDRESS")}
                         />
-                        <div></div>
-                        {errors.mail_address && (
-                          <p className="text-error d-block">
-                            {errors.mail_address.message}
-                          </p>
-                        )}
                       </div>
+                      {errors.mail_address && (
+                        <p className="text-error d-block">
+                          {errors.mail_address.message}
+                        </p>
+                      )}
                       <div className="form-group align-items-start">
                         <label>{t("FROM_MAIL_LABEL_INQUIRY_TYPE")}</label>
                         <div className="form-group__check">
@@ -216,19 +211,17 @@ function FormMail() {
                               ]),
                             },
                           })}
-                          onChange={(e) => setPassowrd(e.target.value)}
                           id="5"
                           className="form-control"
                           rows="5"
                           placeholder={t("PLACEHOLDER_MAIL_CONTENT")}
                         ></textarea>
-                        <div></div>
-                        {errors.content && (
-                          <p className="text-error d-block">
-                            {errors.content.message}
-                          </p>
-                        )}
                       </div>
+                      {errors.content && (
+                        <p className="text-error d-block">
+                          {errors.content.message}
+                        </p>
+                      )}
                     </div>
                     <div className="action-box">
                       <button type="submit" className="btn btn-primary">
