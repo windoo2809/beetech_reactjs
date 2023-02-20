@@ -15,7 +15,7 @@ function SmallAuth(props) {
     const userData = getInfoUserLogin();
 
     const [isLoadingOverlay, setIsLoadingOverlay] = useState(false);
-    const [modalDialogBackToLogin, setModalDialogBackToLogin] = useState(false);
+    // const [modalDialogBackToLogin, setModalDialogBackToLogin] = useState(false);
 
 
     // event logout

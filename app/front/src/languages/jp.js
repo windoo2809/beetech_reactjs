@@ -79,7 +79,9 @@ const jp = {
   WEG_03_0010_btn_search_address:
     "入力した住所をもとに工事現場付近の地図を表示する",
   WEG_03_0010_label_prefectures: "都道府県",
+  WEG_01_0100_label_city:"市区町村",
   WEG_03_0010_placeholder_city: "市区町村を入力",
+  WEG_03_0010_label_address: "番地（町名以降)",
   WEG_03_0010_placeholder_address:
     "番地（町名以降）を入力 \n※未確定の場合は「未確定」とご入力ください",
   WEG_03_0010_label_sms_radio_yes: "あり",

@@ -85,7 +85,7 @@ function MenuMobile(props) {
         }
 
         return () => { isMounted = false };
-    }, [isActiveSearch])
+    }, [isActiveSearch,])
 
     return(
         <div className="menu-mobile d-lg-none">

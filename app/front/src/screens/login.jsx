@@ -2,14 +2,18 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import LinkName from "../constants/link_name";
 import validation from "../constants/validation";
 import "../assets/scss/screens/login.scss";
+import logo from "../assets/images/logo-login.svg";
 import loginApi from "../api/loginApi";
 import HeaderNew from "./layouts/header_new";
+import FooterNew from "./layouts/footer_new";
 
 function Login(props) {
   const [t] = useTranslation();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -24,14 +28,13 @@ function Login(props) {
         email: e.loginID,
         password: e.password,
       })
-      .then(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      .then((data) => {
+        history.push("/dashboard");
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -40,41 +43,60 @@ function Login(props) {
       <div className="sticky-footer not-login">
         <div className="page-template login-page">
           <Container>
-            <div className="show-notification">
-              <div className="list">
-                <ul>
-                  <li>
-                    <a href={LinkName.DETAIL_NOTIFICATION}>
-                      <span>件名テスト</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={LinkName.DETAIL_NOTIFICATION}>
-                      <span>件名テスト</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={LinkName.DETAIL_NOTIFICATION}>
-                      <span>件名テスト</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="action-box">
-                <a href={LinkName.LIST_NOTIFICATION}>
-                  {t("WEG_01_0100_text_link_see_list")}
-                </a>
-              </div>
-            </div>
             <div className="login-content">
+              <div className="show-notification">
+                <h2 className="title-login text-center mb-4 mb-lg-5">
+                  お知らせ
+                </h2>
+                <div className="list">
+                  <ul>
+                    <li>
+                      <a href={LinkName.DETAIL_NOTIFICATION}>
+                        <span className="date mr-2">2022.09.28</span>
+                        <span className="name">件名テスト</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LinkName.DETAIL_NOTIFICATION}>
+                        <span className="date mr-2">2022.09.28</span>
+                        <span className="name">件名テスト</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LinkName.DETAIL_NOTIFICATION}>
+                        <span className="date mr-2">2022.09.28</span>
+                        <span className="name">件名テスト</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LinkName.DETAIL_NOTIFICATION}>
+                        <span className="date mr-2">2022.09.28</span>
+                        <span className="name">件名テスト</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href={LinkName.DETAIL_NOTIFICATION}>
+                        <span className="date mr-2">2022.09.28</span>
+                        <span className="name">件名テスト</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="action-box">
+                  <a href={LinkName.LIST_NOTIFICATION}>
+                    {t("WEG_01_0100_text_link_see_list")}
+                  </a>
+                </div>
+              </div>
               <div className="login-page__box">
+                <h2 className="title-login text-center mb-4 mb-lg-3">
+                  ログイン
+                </h2>
                 <div className="login-page__form">
-                  <div className="text-login text-center">
-                    <div className="d-inline-block">
-                      {t("WEG_01_0100_login")}
-                    </div>
+                  <div className="logo-login text-center">
+                    <img className="d-inline-block" src={logo} alt="" />
                   </div>
-                  <div className="form-wrap">
+                  <div className="form-warp">
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="group-box">
                         <div className="form-group">
@@ -82,6 +104,7 @@ function Login(props) {
                             <div className="reset-box">
                               <input
                                 type="text"
+                                className="form-group__field form-control"
                                 {...register("loginID", {
                                   required: t("VALID_014"),
                                   pattern: {
@@ -89,7 +112,6 @@ function Login(props) {
                                     message: t("VALID_015"),
                                   },
                                 })}
-                                className="form-group__field form-control"
                                 placeholder={t("WEG_01_0100_enterLoginID")}
                               />
                               {errors.loginID && (
@@ -142,16 +164,16 @@ function Login(props) {
                             </div>
                           </div>
                         </div>
+                        <div className="login-page__reset-pass">
+                          <a href={LinkName.SEND_URL_RE_SETTING_PASSWORD}>
+                            {t("WEG_01_0100_forgotPassword")}
+                          </a>
+                        </div>
                       </div>
                       <div className="action-box-btn">
                         <button className="btn btn-lg btn-primary w-100">
                           <strong>{t("WEG_01_0100_login")}</strong>
                         </button>
-                      </div>
-                      <div className="login-page__reset-pass">
-                        <a href={LinkName.SEND_URL_RE_SETTING_PASSWORD}>
-                          {t("WEG_01_0100_forgotPassword")}
-                        </a>
                       </div>
                     </form>
                   </div>
@@ -161,6 +183,7 @@ function Login(props) {
           </Container>
         </div>
       </div>
+      <FooterNew />
     </>
   );
 }

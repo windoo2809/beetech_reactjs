@@ -4,6 +4,7 @@
 .site-header {
   height: 60px;
   color: #ffffff;
+  background-color: #273445;
 
   .container {
     height: 100%;
@@ -28,7 +29,7 @@
       @include flexbox();
       @include align-items(center);
       img {
-        width: 200px;
+        width: 180px;
       }
     }
 
@@ -109,9 +110,9 @@
         grid-template-columns: repeat(2, 1fr);
 
         @media (min-width: 480px) {
-          margin: auto;
           display: grid;
-          grid-template-columns: repeat(2, auto);
+          grid-gap: 16px;
+          grid-template-columns: repeat(3, 1fr);
         }
 
         li {
@@ -190,18 +191,27 @@
       .login-box {
         @include flexbox();
         @include align-items(center);
+
+        a {
+          color: #ffffff;
+          text-decoration: none;
+        }
+        a:hover {
+          color: #005da5;
+          transition: all linear 0.3s;
+        }
       }
     }
 
     @media (min-width: 480px) {
       display: grid;
       grid-gap: 16px;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: auto 1fr auto;
 
       .right-box {
         display: grid;
         grid-gap: 16px;
-        grid-template-columns: arepeat(1, 1fr);
+        grid-template-columns: auto 1fr auto;
 
         .user-nav {
           &__name {

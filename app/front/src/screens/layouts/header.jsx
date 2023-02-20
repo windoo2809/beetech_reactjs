@@ -5,7 +5,6 @@ import NavLink from "./header/nav_link";
 import {isEmpty, isFunction} from 'underscore';
 import {Link, withRouter} from "react-router-dom";
 import logo from "../../assets/images/login.svg";
-import logoBlack from "../../assets/images/logo-black.svg";
 import ImageIconHelp from "../../assets/images/icon/icon-help.png";
 import ImageIconFAQ from "../../assets/images/icon/icon-faq.png";
 import ImageIconBell from "../../assets/images/icon/icon-bell.png";
@@ -13,7 +12,7 @@ import LinkName from "../../constants/link_name";
 import {Container} from "react-bootstrap";
 
 function Header(props) {
-    const {messageProjectId, getInfoUser, setDbUserInfo, hasHeader, hasNav, isUserRole, isUserName, isShowBranchList, isTotalInfoUnread, isShowMenu, hiddenLogoMobile} = props;
+    const {messageProjectId, getInfoUser, setDbUserInfo, hasHeader, hasNav, isUserRole, isUserName, isShowBranchList, isTotalInfoUnread, isShowMenu} = props;
     const [isShowNav, setIsShowNav] = useState(false);
     const handleClickShowHideNav = () => setIsShowNav(!isShowNav);
 
@@ -33,7 +32,7 @@ function Header(props) {
 
         return () => { isMounted = false };
 
-    }, []);
+    }, [setDbUserInfo, getInfoUser]);
 
     return (
         hasHeader && (

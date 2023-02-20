@@ -34,7 +34,7 @@ function MainSidebar(props) {
         }
 
         return () => { isMounted = false };
-    }, [loginUserInfo])
+    }, [loginUserInfo, userRoleListOrder])
 
     // select modal request type
     const toScreenConstructionInfo = () => {
@@ -67,7 +67,7 @@ function MainSidebar(props) {
         }
 
         return () => { isMounted = false };
-    }, [])
+    }, [isClickNavbarSidebar])
 
     const handleNavbarSidebar = (status) => {
         if (!status) {

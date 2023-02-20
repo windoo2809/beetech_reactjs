@@ -10,16 +10,14 @@ import '../../assets/scss/common/_slick_slider_override.scss';
 import Header from './header';
 import MenuMobile from "./menu-mobile";
 import Footer from './footer';
-import Common from "../../constants/common";
-import {clearLoginData, getInfoUserLogin, getUserFromAccessToken, replaceString} from "../../helpers/helpers";
+import {getInfoUserLogin, getUserFromAccessToken} from "../../helpers/helpers";
 import LinkName from "../../constants/link_name";
-import {Trans, useTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 import {Button, Container, Modal} from "react-bootstrap";
 import Breadcrumb from "./breadcrumb"
 import MainSidebar from "./main_sidebar";
 
 function MainLayout(props) {
-    const [t] = useTranslation();
     const loginUserInfo = getUserFromAccessToken();
     const userData = getInfoUserLogin();
     // config request headers
@@ -58,7 +56,6 @@ function MainLayout(props) {
 
     // check status of button back to branch list
     const [isShowBranchList, setShowBranchList] = useState(false);
-    const [errorText, setErrorText] = useState();
     const screensNotCallApi = [
         LinkName.SELECT_BRANCH,
         LinkName.SELECT_CUSTOMER,
@@ -83,42 +80,43 @@ function MainLayout(props) {
         }
 
         return () => { isMounted = false };
-    }, [isUserRole]);
+    }, [isUserRole, screensNotCallApi, pathname]);
 
     // call api customer option
     const [isStatusError, setStatusError] = useState(false);
-    const [isNameActionError, setNameActionError] = useState(null);
+    const [isNameActionError] = useState(null);
     const handleCloseModalError = () => setStatusError(false);
 
     // check show menu login
-    const location = useLocation();
-    const pathNameNotShow = [
-        LinkName.SELECT_BRANCH,
-        LinkName.SELECT_CUSTOMER,
-        LinkName.RE_SETTING_PASSWORD
-    ]
-    const [isShowMenu, setShowMenu] = useState(false);
+    // const pathNameNotShow = [
+    //     LinkName.SELECT_BRANCH,
+    //     LinkName.SELECT_CUSTOMER,
+    //     LinkName.RE_SETTING_PASSWORD
+    // ]
+    const [isShowMenu] = useState(false);
 
     // check info unread
     const [isTotalInfoUnread, setTotalInfoUnread] = useState(0);
-    const checkInfoUnread = [0];
+    // const checkInfoUnread = [0];
 
 
     useEffect(() => {
-        let isMounted = true;
-
+        // old
+        // let isMounted = true;
+        const isMounted = true;
+        
         if ( pathname === LinkName.DETAIL_NOTIFICATION && isTotalInfoUnreadPath ) {
             setTotalInfoUnread(isTotalInfoUnreadPath)
         }
 
         return () => { isMounted = false };
-    }, [isTotalInfoUnreadPath])
+    }, [isTotalInfoUnreadPath, pathname])
 
     // modal show error
-    const [modalDialogError, setModalDialogError] = useState(false);
-    const toggleModalDialogError = () => {
-        setModalDialogError(!modalDialogError)
-    };
+    // const [modalDialogError, setModalDialogError] = useState(false);
+    // const toggleModalDialogError = () => {
+    //     setModalDialogError(!modalDialogError)
+    // };
 
     return (
         <>

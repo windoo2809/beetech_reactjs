@@ -1,9 +1,31 @@
 @import "../common/variables";
 @import "../common/mixins";
 
+body {
+  font-family: "NotoSansJP", sans-serif;
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 400;
+  word-break: break-word;
+}
+.sticky-footer {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+
+  .page-template {
+    padding-top: 12px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
+}
 .login-page {
   .login-content {
-    max-width: 710px;
+    max-width: 910px;
     margin: 0 auto;
   }
 
@@ -23,14 +45,12 @@
 
     .list {
       margin-bottom: 12px;
-      margin-top: 20px;
-      border: grey 1px solid;
-      border-radius: 10px;
+      padding-left: 30px;
 
       ul {
         list-style: none;
         margin: 0;
-        padding: 10px 0px 10px 10px;
+        padding: 0;
 
         li {
           margin-bottom: 8px;
@@ -40,11 +60,17 @@
           &:last-child {
             margin-bottom: 0;
           }
-
           a {
-            display: inline-block;
-            line-height: inherit;
             color: black;
+            text-decoration: none;
+
+            &:hover {
+              color: #55abd9;
+              transition: all linear 0.3s;
+            }
+            .date {
+              color: #55abd9;
+            }
           }
         }
       }
@@ -57,8 +83,10 @@
         display: inline-block;
         color: $color-link;
         font-size: 12px;
+        text-decoration: none;
 
         &:hover {
+          transition: all linear 0.3s;
           color: $color-text;
         }
       }
@@ -97,12 +125,18 @@
   }
 
   &__form {
-    padding: 27px 70px 40px 70px;
-    border: 1px solid grey;
+    padding: 27px 12px 40px;
+    border-radius: 6px;
+    background-color: #efefef;
 
-    .text-login {
-      font-size: 30px;
-      margin-bottom: 50px;
+    .logo-login {
+      img {
+        width: 144px;
+      }
+    }
+
+    .logo-login {
+      margin-bottom: 18px;
     }
 
     .form-warp {
@@ -122,9 +156,13 @@
       }
 
       .form-control {
-        padding: 17px 12px 18px;
+        padding: 30px 18px;
         border-radius: 6px;
         border: 1px solid rgba(98, 98, 99, 0.5);
+
+        &::placeholder {
+          opacity: 0.5;
+        }
       }
     }
 
@@ -142,15 +180,15 @@
   }
 
   &__reset-pass {
-    text-align: center;
-    margin-top: 15px;
-
+    text-align: right;
+    margin-bottom: 22px;
     a {
       display: inline-block;
-      font-size: 15px;
-      color: $color-title;
+      font-size: 12px;
+      text-decoration: underline;
 
       &:hover {
+        transition: all linear 0.3s;
         color: $color-title;
       }
     }
@@ -163,8 +201,12 @@
 
   .action-box-btn {
     .btn {
-      font-size: 15px;
+      padding: 22px 12px 16px;
+      font-size: 12px;
+      border-radius: 25px !important;
       border: none;
+      background-color: #273445;
+      border: 0;
 
       &:active {
         background-color: $background-color-main-active !important;

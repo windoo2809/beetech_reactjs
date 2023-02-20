@@ -1,9 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Modal } from "reactstrap";
 import "../../assets/scss/screens/modal.scss";
-import LinkName from "../../constants/link_name";
 
 function DialogFormMail(props) {
   const [t] = useTranslation();

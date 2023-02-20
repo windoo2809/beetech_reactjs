@@ -18,7 +18,10 @@
       li {
         display: inline-block;
         border-right: 1px solid #ffffff;
-
+        a{
+          color: #ffffff;
+          text-decoration: none;
+        }
         .link {
           position: relative;
           padding: 0 12px;
@@ -27,6 +30,7 @@
           cursor: pointer;
 
           &:hover {
+            transition: all linear 0.3s;
             color: $color-main;
           }
         }

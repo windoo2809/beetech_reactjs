@@ -7,7 +7,6 @@ import jwt_decode from "jwt-decode";
 import Common from "../constants/common";
 import Permission from "../constants/permission";
 import moment from "moment";
-import { getDaysInMonth } from "date-fns";
 
 // helper functions here
 export function fomatDateJP(dateString) {
@@ -133,7 +132,11 @@ export function fomatSendMail(value = '') {
 }
 
 export function isValidEmail(email) {
-    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    // old regex
+    // const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    // new regex
+    const regex = /^(([^<>()[\],;:\s@"]+([^<>()[\],;:\s@"]+)*)|(".+"))@(([^<>()[\],;:\s@"]+)+[^<>()[\],;:\s@"]{2,})$/i;
     return regex.test(String(email).toLowerCase());
 };
 
@@ -477,7 +480,7 @@ export function CSVToArray(strData, strDelimiter) {
 
     let arrMatches = null;
 
-    while (arrMatches = objPattern.exec(strData)) {
+    while (arrMatches !== objPattern.exec(strData)) {
         let strMatchedDelimiter = arrMatches[1];
         if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter) {
             arrData.push({});
@@ -666,7 +669,7 @@ export function checkPermissionForPage(pathname, userRole) {
     if (pageInfo[pathname]) {
         let lstP = pageInfo[pathname];
         for (let index = 0; index < lstP.length; index++) {
-            if (lstP[index] == userRole) {
+            if (lstP[index] === userRole) {
                 return false;
             }
         }
@@ -822,7 +825,7 @@ export function handleEstAmount(
     const dayOfMonthDefault = Common.DAY_OF_MONTH;
     const dayOfMonthStart = new Date(startDateData.year, startDateData.month, 0).getDate();
     const dayOfMonthEnd = new Date(endDateData.year, endDateData.month, 0).getDate();
-    const dayOfMonthAfterEnd = new Date(endDateData.year, endDateData.month - 1, 0).getDate();
+    // const dayOfMonthAfterEnd = new Date(endDateData.year, endDateData.month - 1, 0).getDate();
 
     if (startDateData.date === 1 && endDateData.date === dayOfMonthEnd) {
         totalMonth += Common.PAY_UNIT.ONE_MONTH;

@@ -7,4 +7,7 @@ export default {
     DETAIL_NOTIFICATION: '/detail-notification',
     MAIL_FORM: '/mail_form',
     FAQ: '/faq',
+    BELL: '/bell',
+    CUSTOMER: '/customer',
+    DASHBOARD: '/dashboard',
 };
