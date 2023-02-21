@@ -171,7 +171,8 @@ function FormMail() {
                               type="radio"
                               {...register("inquiry_type")}
                               value="4"
-                              defaultChecked/>
+                              defaultChecked
+                            />
                             <label
                               htmlFor="option-1"
                               className="form-check-label"
@@ -227,7 +228,7 @@ function FormMail() {
                           })}
                           id="5"
                           className="form-control"
-                          rows="5"
+                          rows="4"
                           placeholder={t("PLACEHOLDER_MAIL_CONTENT")}
                         ></textarea>
                         <div></div>

@@ -1,6 +1,12 @@
 @import "../../common/variables";
 @import "../../common/mixins";
 
+body header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 .site-header {
   height: 60px;
   color: #ffffff;

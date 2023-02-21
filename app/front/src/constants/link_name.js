@@ -5,7 +5,7 @@ export default {
     SEND_URL_RE_SETTING_PASSWORD: '/send-url-re-setting-password',
     LIST_NOTIFICATION: '/list-notification',
     DETAIL_NOTIFICATION: '/detail-notification',
-    MAIL_FORM: '/mail_form',
+    MAIL_FORM: '/mail-form',
     FAQ: '/faq',
     BELL: '/bell',
     CUSTOMER: '/customer',

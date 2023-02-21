@@ -16,12 +16,11 @@ body {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-
-  .page-template {
-    padding-top: 12px;
-    padding-bottom: 50px;
-    overflow-x: hidden;
-  }
+}
+.page-template {
+  padding-top: 12px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
 }
 .login-page {
   .login-content {
@@ -31,7 +30,7 @@ body {
 
   .title-login {
     font-size: 23px;
-    margin-bottom: 42px;
+    margin-bottom: 20px;
 
     @media (max-width: 991px) {
       font-size: 18px;
@@ -41,7 +40,7 @@ body {
   }
 
   .show-notification {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     .list {
       margin-bottom: 12px;
@@ -53,7 +52,7 @@ body {
         padding: 0;
 
         li {
-          margin-bottom: 8px;
+          margin-bottom: 6px;
           line-height: 1.2em;
           font-size: 14px;
 
@@ -125,7 +124,7 @@ body {
   }
 
   &__form {
-    padding: 27px 12px 40px;
+    padding: 20px;
     border-radius: 6px;
     background-color: #efefef;
 
@@ -136,7 +135,7 @@ body {
     }
 
     .logo-login {
-      margin-bottom: 18px;
+      margin-bottom: 10px;
     }
 
     .form-warp {
@@ -156,7 +155,7 @@ body {
       }
 
       .form-control {
-        padding: 30px 18px;
+        padding: 20px 10px;
         border-radius: 6px;
         border: 1px solid rgba(98, 98, 99, 0.5);
 
@@ -167,8 +166,6 @@ body {
     }
 
     @media (max-width: 991px) {
-      background-color: transparent;
-
       .logo-login {
         display: none;
       }
@@ -201,7 +198,7 @@ body {
 
   .action-box-btn {
     .btn {
-      padding: 22px 12px 16px;
+      padding: 15px;
       font-size: 12px;
       border-radius: 25px !important;
       border: none;

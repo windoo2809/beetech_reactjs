@@ -1,223 +1,246 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, withRouter} from "react-router-dom";
-import {isEmpty} from 'underscore';
-import '../../assets/scss/common/_reset.scss';
-import '../../assets/scss/common/_common.scss';
-import '../../assets/scss/common/_bootstrap_override.scss';
-import '../../assets/scss/common/_slick_slider_override.scss';
+import React, { useEffect, useState } from "react";
+import { useLocation, withRouter } from "react-router-dom";
+import { isEmpty } from "underscore";
+import "../../assets/scss/common/_reset.scss";
+import "../../assets/scss/common/_common.scss";
+import "../../assets/scss/common/_bootstrap_override.scss";
+import "../../assets/scss/common/_slick_slider_override.scss";
 
 // import file
-import Header from './header';
+import Header from "./header";
 import MenuMobile from "./menu-mobile";
-import Footer from './footer';
-import {getInfoUserLogin, getUserFromAccessToken} from "../../helpers/helpers";
+import Footer from "./footer";
+import {
+  getInfoUserLogin,
+  getUserFromAccessToken,
+} from "../../helpers/helpers";
 import LinkName from "../../constants/link_name";
-import {Trans} from "react-i18next";
-import {Button, Container, Modal} from "react-bootstrap";
-import Breadcrumb from "./breadcrumb"
+import { Trans } from "react-i18next";
+import { Button, Container, Modal } from "react-bootstrap";
+import Breadcrumb from "./breadcrumb";
 import MainSidebar from "./main_sidebar";
 
 function MainLayout(props) {
-    const loginUserInfo = getUserFromAccessToken();
-    const userData = getInfoUserLogin();
-    // config request headers
-    const headersConfig = {
-        headers: {
-            'Authorization': `Bearer ${userData.access_token}`
-        }
+  const loginUserInfo = getUserFromAccessToken();
+  const userData = getInfoUserLogin();
+  // config request headers
+  const headersConfig = {
+    headers: {
+      Authorization: `Bearer ${userData.access_token}`,
+    },
+  };
+
+  const { messageProjectId, dbUserInfo, isTotalInfoUnreadPath } = props;
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      window.scrollTo(0, 0);
     }
 
-    const {messageProjectId, dbUserInfo, isTotalInfoUnreadPath} = props;
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname, headersConfig]);
 
-    const {pathname} = useLocation();
-    useEffect(() => {
-        let isMounted = true;
+  // get user role
+  const [isUserRole, setUserRole] = useState(null);
+  const [isUserName, setUserName] = useState(null);
+  useEffect(() => {
+    let isMounted = true;
 
-        if ( isMounted ) {
-            window.scrollTo(0, 0);
+    if (isMounted && Object.keys(loginUserInfo).length) {
+      setUserRole(loginUserInfo.role);
+      setUserName(loginUserInfo.customer_user_name);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [loginUserInfo]);
+
+  // check status of button back to branch list
+  const [isShowBranchList, setShowBranchList] = useState(false);
+  const screensNotCallApi = [
+    LinkName.SELECT_BRANCH,
+    LinkName.SELECT_CUSTOMER,
+    LinkName.RE_SETTING_PASSWORD_FIRST_TIME,
+    LinkName.RE_SETTING_PASSWORD,
+    LinkName.RE_SETTING_PASSWORD_COMPLETE,
+    LinkName.RE_SETTING_PASSWORD_SEND_URL_COMPLETE,
+    LinkName.RE_SETTING_PASSWORD_SEND_URL,
+  ];
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      if (isUserRole) {
+        if (!screensNotCallApi.includes(pathname)) {
         }
+      } else {
+        setShowBranchList(false);
+      }
+    }
 
-        return () => { isMounted = false };
-    }, [pathname]);
+    return () => {
+      isMounted = false;
+    };
+  }, [isUserRole, screensNotCallApi, pathname]);
 
-    // get user role
-    const [isUserRole, setUserRole] = useState(null);
-    const [isUserName, setUserName] = useState(null);
-    useEffect((  ) => {
-        let isMounted = true;
+  // call api customer option
+  const [isStatusError, setStatusError] = useState(false);
+  const [isNameActionError] = useState(null);
+  const handleCloseModalError = () => setStatusError(false);
 
-        if (isMounted && Object.keys(loginUserInfo).length) {
-            setUserRole(loginUserInfo.role);
-            setUserName(loginUserInfo.customer_user_name);
-        }
+  // check show menu login
+  // const pathNameNotShow = [
+  //     LinkName.SELECT_BRANCH,
+  //     LinkName.SELECT_CUSTOMER,
+  //     LinkName.RE_SETTING_PASSWORD
+  // ]
+  const [isShowMenu] = useState(false);
 
-        return () => { isMounted = false };
-    }, [loginUserInfo])
+  // check info unread
+  const [isTotalInfoUnread, setTotalInfoUnread] = useState(0);
+  // const checkInfoUnread = [0];
 
-    // check status of button back to branch list
-    const [isShowBranchList, setShowBranchList] = useState(false);
-    const screensNotCallApi = [
-        LinkName.SELECT_BRANCH,
-        LinkName.SELECT_CUSTOMER,
-        LinkName.RE_SETTING_PASSWORD_FIRST_TIME,
-        LinkName.RE_SETTING_PASSWORD,
-        LinkName.RE_SETTING_PASSWORD_COMPLETE,
-        LinkName.RE_SETTING_PASSWORD_SEND_URL_COMPLETE,
-        LinkName.RE_SETTING_PASSWORD_SEND_URL,
-    ]
+  useEffect(() => {
+    let isMounted = true;
 
-    useEffect( () => {
-        let isMounted = true;
+    if (isMounted) {
+      if (pathname === LinkName.DETAIL_NOTIFICATION && isTotalInfoUnreadPath) {
+        setTotalInfoUnread(isTotalInfoUnreadPath);
+      }
+    }
 
-        if ( isMounted ) {
+    return () => {
+      isMounted = false;
+    };
+  }, [isTotalInfoUnreadPath, pathname]);
 
-            if( isUserRole ) {
-                if(!screensNotCallApi.includes(pathname)){
-                }
-            } else {
-                setShowBranchList(false);
-            }
-        }
+  // modal show error
+  // const [modalDialogError, setModalDialogError] = useState(false);
+  // const toggleModalDialogError = () => {
+  //     setModalDialogError(!modalDialogError)
+  // };
 
-        return () => { isMounted = false };
-    }, [isUserRole, screensNotCallApi, pathname]);
+  return (
+    <>
+      <Header
+        messageProjectId={!isEmpty(messageProjectId) ? messageProjectId : null}
+        setDbUserInfo={props.setDbUserInfo}
+        hasHeader={props.hasHeader}
+        hasNav={props.hasNav}
+        getInfoUser={loginUserInfo}
+        dbUserInfo={dbUserInfo}
+        isUserRole={isUserRole}
+        isUserName={isUserName}
+        isShowBranchList={isShowBranchList}
+        isTotalInfoUnread={isTotalInfoUnread}
+        isShowMenu={isShowMenu}
+      />
 
-    // call api customer option
-    const [isStatusError, setStatusError] = useState(false);
-    const [isNameActionError] = useState(null);
-    const handleCloseModalError = () => setStatusError(false);
+      <div
+        className={`sticky-footer ${
+          Object.keys(loginUserInfo).length > 0 && isShowMenu
+            ? "mobile-style"
+            : "not-login"
+        }`}
+      >
+        <div className={`page-template ${props.classPage}`}>
+          <Container>
+            {props.hasBreadcrumb && (
+              <Breadcrumb
+                listBreadcrumb={props.listBreadcrumb}
+                customBreadcrumb={props.customBreadcrumb}
+              />
+            )}
 
-    // check show menu login
-    // const pathNameNotShow = [
-    //     LinkName.SELECT_BRANCH,
-    //     LinkName.SELECT_CUSTOMER,
-    //     LinkName.RE_SETTING_PASSWORD
-    // ]
-    const [isShowMenu] = useState(false);
+            {Object.keys(loginUserInfo).length > 0 && props.hasMainSidebar ? (
+              <div className="page-content has-sidebar">
+                <MainSidebar />
 
-    // check info unread
-    const [isTotalInfoUnread, setTotalInfoUnread] = useState(0);
-    // const checkInfoUnread = [0];
+                <div className="content-wrapper">{props.children}</div>
+              </div>
+            ) : (
+              props.children
+            )}
+          </Container>
+        </div>
+      </div>
 
+      {props.hasHeader &&
+        Object.keys(loginUserInfo).length > 0 &&
+        isShowMenu > 0 && (
+          <MenuMobile
+            isTotalInfoUnread={isTotalInfoUnread}
+            header={{
+              messageProjectId: !isEmpty(messageProjectId)
+                ? messageProjectId
+                : null,
+              setDbUserInfo: props.setDbUserInfo,
+              hasHeader: props.hasHeader,
+              hasNav: props.hasNav,
+              getInfoUser: loginUserInfo,
+              dbUserInfo: dbUserInfo,
+              isUserRole: isUserRole,
+              isUserName: isUserName,
+              isShowBranchList: isShowBranchList,
+              isTotalInfoUnread: isTotalInfoUnread,
+              isShowMenu: isShowMenu,
+            }}
+          />
+        )}
 
-    useEffect(() => {
-        // old
-        // let isMounted = true;
-        const isMounted = true;
-        
-        if ( pathname === LinkName.DETAIL_NOTIFICATION && isTotalInfoUnreadPath ) {
-            setTotalInfoUnread(isTotalInfoUnreadPath)
-        }
+      {props.hasFooter && (
+        <Footer
+          isUserRole={isUserRole}
+          isShowBranchList={isShowBranchList}
+          getInfoUser={loginUserInfo}
+          isShowMenu={isShowMenu}
+        />
+      )}
 
-        return () => { isMounted = false };
-    }, [isTotalInfoUnreadPath, pathname])
+      {/* Modal dialog error */}
+      <Modal
+        show={isStatusError}
+        onHide={handleCloseModalError}
+        className="modal-custom-center"
+      >
+        <Modal.Body>
+          <div className="card-warp">
+            <div className="card border-0">
+              <div className="card-body text-center">
+                <h5 className="card-title mb-5">{isNameActionError}</h5>
 
-    // modal show error
-    // const [modalDialogError, setModalDialogError] = useState(false);
-    // const toggleModalDialogError = () => {
-    //     setModalDialogError(!modalDialogError)
-    // };
-
-    return (
-        <>
-            <Header
-                messageProjectId={!isEmpty(messageProjectId) ? messageProjectId : null}
-                setDbUserInfo={props.setDbUserInfo}
-                hasHeader={props.hasHeader}
-                hasNav={props.hasNav}
-                getInfoUser={loginUserInfo}
-                dbUserInfo={dbUserInfo}
-                isUserRole={isUserRole}
-                isUserName={isUserName}
-                isShowBranchList={isShowBranchList}
-                isTotalInfoUnread={isTotalInfoUnread}
-                isShowMenu={isShowMenu}
-            />
-
-            <div className={`sticky-footer ${Object.keys(loginUserInfo).length > 0 && isShowMenu ? 'mobile-style' : 'not-login'}`}>
-                <div className={`page-template ${props.classPage}`}>
-                    <Container>
-                        {props.hasBreadcrumb && (
-                            <Breadcrumb
-                                listBreadcrumb={props.listBreadcrumb}
-                                customBreadcrumb={props.customBreadcrumb}
-                            />
-                        )}
-
-                        {Object.keys(loginUserInfo).length > 0 && props.hasMainSidebar ? (
-                            <div className="page-content has-sidebar">
-                                <MainSidebar />
-
-                                <div className="content-wrapper">
-                                    {props.children}
-                                </div>
-                            </div>
-                        ) : (
-                            props.children
-                        )}
-                    </Container>
-                </div>
+                <Button
+                  variant="primary"
+                  className="btn-lg btn-action"
+                  onClick={handleCloseModalError}
+                >
+                  <Trans i18nKey="LABEL_OK" />
+                </Button>
+              </div>
             </div>
-
-            {props.hasHeader && Object.keys(loginUserInfo).length > 0 && isShowMenu > 0 && (
-                <MenuMobile
-                    isTotalInfoUnread={isTotalInfoUnread}
-                    header={{
-                        messageProjectId: !isEmpty(messageProjectId) ? messageProjectId : null,
-                        setDbUserInfo: props.setDbUserInfo,
-                        hasHeader: props.hasHeader,
-                        hasNav: props.hasNav,
-                        getInfoUser: loginUserInfo,
-                        dbUserInfo: dbUserInfo,
-                        isUserRole: isUserRole,
-                        isUserName: isUserName,
-                        isShowBranchList: isShowBranchList,
-                        isTotalInfoUnread: isTotalInfoUnread,
-                        isShowMenu: isShowMenu
-                    }}
-                />
-            )}
-
-            {props.hasFooter && (
-                <Footer
-                    isUserRole={isUserRole}
-                    isShowBranchList={isShowBranchList}
-                    getInfoUser={loginUserInfo}
-                    isShowMenu={isShowMenu}
-                />
-            )}
-
-            { /* Modal dialog error */ }
-            <Modal show={isStatusError} onHide={handleCloseModalError} className="modal-custom-center">
-                <Modal.Body>
-                    <div className="card-warp">
-                        <div className="card border-0">
-                            <div className="card-body text-center">
-                                <h5 className="card-title mb-5">
-                                    {isNameActionError}
-                                </h5>
-
-                                <Button variant="primary" className="btn-lg btn-action" onClick={handleCloseModalError}>
-                                    <Trans i18nKey="LABEL_OK" />
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
-        </>
-    );
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 }
 
 MainLayout.defaultProps = {
-    hasHeader: true,
-    hasFooter: true,
-    hasNav: true,
-    classPage: '',
-    hasBreadcrumb: true,
-    listBreadcrumb: '',
-    customBreadcrumb: false,
-    hasMainSidebar: true
+  hasHeader: true,
+  hasFooter: true,
+  hasNav: true,
+  classPage: "",
+  hasBreadcrumb: true,
+  listBreadcrumb: "",
+  customBreadcrumb: false,
+  hasMainSidebar: true,
 };
 
 export default withRouter(MainLayout);

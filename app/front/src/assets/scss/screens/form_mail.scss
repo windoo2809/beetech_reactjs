@@ -25,13 +25,27 @@ body {
   flex: 1 0 auto;
   -moz-flex-direction: column;
   flex-direction: column;
+
+  .page-template {
+    padding-top: 12px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
+}
+.breadcrumb {
+  font-size: 12px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  margin-bottom: 24px;
+  background: none;
 }
 .breadcrumb-box {
   margin-bottom: 30px;
   .breadcrumb {
     margin: 0;
     border-bottom: 0;
-    background: none;
+    padding: 0;
     .breadcrumb-item {
       font-weight: 600;
       color: #000000 !important;
@@ -40,8 +54,8 @@ body {
       }
     }
   }
-  .breadcrumb-item{
-    &::before{
+  .breadcrumb-item {
+    &::before {
       float: right;
       padding-right: 0.5rem;
       color: #6c757d;
@@ -53,7 +67,6 @@ body {
   padding: 12px;
   display: grid;
   grid-template-columns: 60%;
-  align-items: center;
   justify-content: center;
   background-color: #efefef;
 
@@ -115,7 +128,7 @@ body {
       }
 
       .form-control {
-        padding: 10px;
+        padding: 5px 12px;
         height: auto;
         border-color: #eee;
 

@@ -2,7 +2,6 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 import LinkName from "../constants/link_name";
 import validation from "../constants/validation";
 import "../assets/scss/screens/login.scss";
@@ -13,7 +12,6 @@ import FooterNew from "./layouts/footer_new";
 
 function Login(props) {
   const [t] = useTranslation();
-  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -28,13 +26,15 @@ function Login(props) {
         email: e.loginID,
         password: e.password,
       })
-      .then((data) => {
-        history.push("/dashboard");
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(
+        (data) => {
+          props.history.push(LinkName.DASHBOARD);
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   return (
@@ -45,7 +45,7 @@ function Login(props) {
           <Container>
             <div className="login-content">
               <div className="show-notification">
-                <h2 className="title-login text-center mb-4 mb-lg-5">
+                <h2 className="title-login text-center mb-2 mb-lg-3">
                   お知らせ
                 </h2>
                 <div className="list">
@@ -89,9 +89,7 @@ function Login(props) {
                 </div>
               </div>
               <div className="login-page__box">
-                <h2 className="title-login text-center mb-4 mb-lg-3">
-                  ログイン
-                </h2>
+                <h2 className="title-login text-center">ログイン</h2>
                 <div className="login-page__form">
                   <div className="logo-login text-center">
                     <img className="d-inline-block" src={logo} alt="" />

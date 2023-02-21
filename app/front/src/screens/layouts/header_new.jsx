@@ -24,9 +24,9 @@ function HeaderNew() {
           <div className="search-box d-none d-lg-flex align-items-lg-center"></div>
           <div className="right-box">
             <div className="login-box">
-            <Link to={LinkName.LOGIN}>
-              <span>{t("WEG_01_0100_login")}</span>
-            </Link>
+              <Link to={LinkName.LOGIN}>
+                <span>{t("WEG_01_0100_login")}</span>
+              </Link>
             </div>
             <ul className="nav-link">
               <li>
