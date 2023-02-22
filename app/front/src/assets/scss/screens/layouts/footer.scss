@@ -1,14 +1,16 @@
 @import "../../common/mixins";
 @import "../../common/variables";
-
+.container{
+  max-width: 1200px;
+}
 .site-footer {
-  padding: 20px 0;
+  padding: 63px;
   color: #ffffff;
   text-align: center;
   background-color: $background-color-main;
 
   &__nav {
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 
     ul {
       list-style: none;
@@ -18,7 +20,10 @@
       li {
         display: inline-block;
         border-right: 1px solid #ffffff;
-
+        a{
+          color: #ffffff;
+          text-decoration: none;
+        }
         .link {
           position: relative;
           padding: 0 12px;
@@ -27,6 +32,7 @@
           cursor: pointer;
 
           &:hover {
+            transition: all linear 0.3s;
             color: $color-main;
           }
         }

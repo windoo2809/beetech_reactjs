@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function LoadingData() {
-    return (
-        <div className="text-center position-relative loading-data">
-            <div className="loader"/>
-        </div>
-    );
+  return (
+    <div className="text-center position-relative loading-data">
+      <div className="loader" />
+    </div>
+  );
 }
 
 export default LoadingData;

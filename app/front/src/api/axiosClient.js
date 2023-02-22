@@ -1,7 +1,4 @@
 import axios from 'axios';
-import LinkName from "../constants/link_name";
-import {useHistory} from "react-router";
-import Common from "../constants/common";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

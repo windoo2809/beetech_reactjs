@@ -19,13 +19,56 @@ body {
   font-weight: 400;
   word-break: break-word;
 }
+.sticky-footer {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  -moz-flex-direction: column;
+  flex-direction: column;
 
+  .page-template {
+    padding-top: 12px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
+}
+.breadcrumb {
+  font-size: 12px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  margin-bottom: 24px;
+  background: none;
+}
+.breadcrumb-box {
+  margin-bottom: 30px;
+  .breadcrumb {
+    margin: 0;
+    border-bottom: 0;
+    padding: 0;
+    .breadcrumb-item {
+      font-weight: 600;
+      color: #000000 !important;
+      a {
+        color: #4597f5;
+      }
+    }
+  }
+  .breadcrumb-item {
+    &::before {
+      float: right;
+      padding-right: 0.5rem;
+      color: #6c757d;
+      content: ">";
+    }
+  }
+}
 .template-form-mail {
   padding: 12px;
   display: grid;
   grid-template-columns: 60%;
-  align-items: center;
   justify-content: center;
+  background-color: #efefef;
 
   @media (max-width: 991px) {
     grid-template-columns: 1fr;
@@ -69,33 +112,42 @@ body {
             top: 3px;
           }
         }
+        .text-error {
+          height: 0;
+          overflow: hidden;
+        }
+        .error-active {
+          transition: all 0.4s ease-in-out;
+          height: 100%;
+        }
       }
-
       .text-error {
-        height: 100%;
-        overflow: hidden;
-        transition: all 1s ease-in-out;
+        font-weight: bold;
         color: #ff0000;
-        margin: 0.5rem 0 1 0;
+        margin: 0.5rem 0 0 0;
       }
 
       .form-control {
-        padding: 8 16px;
+        padding: 5px 12px;
         height: auto;
         border-color: #eee;
+
+        &::placeholder {
+          opacity: 0.5;
+        }
       }
 
       .action-box {
         text-align: right;
+        display: flex;
 
         .btn-primary {
+          background-color: #273445;
           border: 0;
-          padding: 8px;
+          padding: 10px;
           margin: auto;
-          margin-right: 50px;
           font-size: 1.2rem;
-          width: 100px;
-
+          width: 200px;
           @media (max-width: 575px) {
             width: 100%;
           }
