@@ -1,6 +1,22 @@
 @import "../common/variables";
 @import "../common/mixins";
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
 
+body {
+  font-family: "NotoSansJP";
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 400;
+  word-break: break-word;
+}
 .sticky-footer {
   position: relative;
   display: flex;
@@ -17,15 +33,15 @@
 .construction-information__box {
   width: 65%;
   margin: auto;
-
+  @media (max-width: 767px) {
+    width: 100%;
+  }
   .form-check-input {
     margin-top: 0.35rem;
   }
 }
 
 .construction-information {
-  min-height: 100vh;
-
   .heading {
     padding: 30px 0px 25px;
     border-bottom: 2px solid;
@@ -37,6 +53,9 @@
       color: #000;
       font-weight: bold;
       margin: 0;
+      @media (max-width: 575px) {
+        font-size: 14px;
+      }
     }
   }
 
@@ -53,6 +72,9 @@
       background-color: unset;
       border-top: unset;
       font-size: 13px;
+      @media (max-width: 575px) {
+        padding: 0.75rem 1rem;
+      }
 
       .btn-cancel {
         background-color: #7d858f;
@@ -62,6 +84,10 @@
       button {
         min-width: 25%;
         padding: 10px;
+        @media (max-width: 575px) {
+          width: 100%;
+          margin-top: 5px;
+        }
       }
     }
   }
@@ -90,6 +116,16 @@
         padding: 16px 12px;
         font-weight: 500;
         border-radius: 8px;
+
+        &::placeholder {
+          opacity: 0.5;
+        }
+      }
+      p {
+        @media (max-width: 575px) {
+          margin-top: 5px;
+          font-size: 10px;
+        }
       }
     }
     .group-zip {
@@ -114,21 +150,25 @@
         width: 65%;
         margin: 10px auto;
         padding: 0 0.25rem;
+        @media (max-width: 767px) {
+          width: 100%;
+        }
 
         .btn-pink {
           border: 0;
           color: white;
+          background-color: #435a77 !important;
           border-radius: 5px !important;
           width: 100%;
           height: 55px;
           font-size: 17px;
+
         }
 
         .btn-pink:disabled {
           background-color: #435a77 !important;
         }
 
-        button:disabled,
         .btn:disabled {
           cursor: no-drop !important;
           opacity: 1;

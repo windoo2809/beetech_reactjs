@@ -1,47 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import Postal from "japan-postal-code";
 import { replaceString } from "../helpers/helpers";
 import { useHistory } from "react-router-dom";
+import LinkName from "../constants/link_name";
 import validation from "../constants/validation";
 import HeaderNew from "./layouts/header_new";
 import FooterNew from "./layouts/footer_new";
-import customer from "../api/customer";
-import "../assets/scss/screens/customer.scss";
+import "../assets/scss/screens/construction_info.scss";
 
-export default function Customer() {
+export default function ConstructionInfo(props) {
   const [t] = useTranslation();
   const history = useHistory();
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isBtnSearchZip, setIsBtnSearchZip] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [constructionNumber, setConstructionNumber] = useState("");
+  const [siteName, setSiteName] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [siteAddress, setSiteAddress] = useState("");
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
-    shouldUseNativeValidation: true,
+    mode: "onChange",
+    reValidateMode: "onChange",
+    defaultValues: {
+      construction_number: "",
+      site_name: "",
+      zipcode: "",
+      site_prefecture: "",
+      site_city: "",
+      site_address: "",
+    },
   });
-
-  useEffect(() => {
-    customer
-      .getCustomer()
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  
   const onSubmit = (data) => {
     console.log(data);
   };
-  const onClick = () => {
-    history.push("/");
+
+  const handleChecked = () => {
+    setIsDisabled(!isDisabled);
+    setIsBtnSearchZip(!isBtnSearchZip);
+    setValue("site_prefecture", "");
+    setValue("site_city", "");
   };
 
-  const isCheckbox = () => {
-    setIsDisabled(!isDisabled);
+  const handleZipcode = (e) => {
+    if (zipcode) {
+      Postal.get(`${zipcode}`, function (address) {
+        setValue("site_prefecture", address.prefecture);
+        setValue("site_city", address.city);
+      });
+    }
+    e.preventDefault();
+  };
+
+  const onClick = () => {
+    history.push(LinkName.LOGIN);
   };
 
   return (
@@ -49,7 +69,7 @@ export default function Customer() {
       <HeaderNew />
       <div className="sticky-footer">
         <div className="page-template">
-          <div className="container">
+          <Container>
             <div className="page-content">
               <div className="content-wrapper">
                 <div className="construction-information create">
@@ -60,8 +80,8 @@ export default function Customer() {
                       </h1>
                     </div>
                     <form
-                      onSubmit={handleSubmit(onSubmit)}
                       className="form-construction-information"
+                      onSubmit={handleSubmit(onSubmit)}
                     >
                       <div className="construction-information__box card-body">
                         <div className="box-group">
@@ -94,6 +114,9 @@ export default function Customer() {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_construction_number"
                                   )}
+                                  onChange={(e) =>
+                                    setConstructionNumber(e.target.value)
+                                  }
                                 />
                               </div>
                               {errors.construction_number && (
@@ -135,6 +158,9 @@ export default function Customer() {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_construction_name"
                                   )}
+                                  onChange={(e) =>
+                                    setSiteName(e.target.value)
+                                  }
                                 />
                               </div>
                               {errors.site_name && (
@@ -156,7 +182,8 @@ export default function Customer() {
                                   <input
                                     className="form-control"
                                     type="text"
-                                    {...register("zip_code", {
+                                    {...register("zipcode", {
+                                      required: true,
                                       pattern: {
                                         value: validation.ZIP_CODE.PATTERN,
                                         message: t("VALID_004"),
@@ -165,11 +192,18 @@ export default function Customer() {
                                     placeholder={t(
                                       "WEG_03_0010_placeholder_post_code"
                                     )}
+                                    value={zipcode}
+                                    onChange={(e) => setZipcode(e.target.value)}
                                   />
                                 </div>
-                                <button className="btn btn-search-zip">
-                                  {t("WEG_03_0010_text_btn_search_zip")}
-                                </button>
+                                {!isBtnSearchZip && (
+                                  <button
+                                    className="btn btn-search-zip"
+                                    onClick={handleZipcode}
+                                  >
+                                    {t("WEG_03_0010_text_btn_search_zip")}
+                                  </button>
+                                )}
                               </div>
                               <div className="form-check">
                                 <input
@@ -177,7 +211,7 @@ export default function Customer() {
                                   id="checkSearchZip"
                                   name="check_search_zip"
                                   className="form-check-input"
-                                  onClick={isCheckbox}
+                                  onClick={handleChecked}                                 
                                 />
                                 <label
                                   htmlFor="checkSearchZip"
@@ -186,9 +220,9 @@ export default function Customer() {
                                   {t("WEG_03_0010_text_check_search_zip")}
                                 </label>
                               </div>
-                              {errors.zip_code && (
+                              {errors.zipcode && (
                                 <p className="text-danger font-weight-bold">
-                                  {errors.zip_code.message}
+                                  {errors.zipcode.message}
                                 </p>
                               )}
                             </div>
@@ -208,7 +242,7 @@ export default function Customer() {
                                   className="form-control input-hidden-attribute"
                                   tabIndex="-1"
                                   type="text"
-                                  {...register("site_prefectures", {
+                                  {...register("site_prefecture", {
                                     required: replaceString(t("VALID_006"), [
                                       "都道府県",
                                     ]),
@@ -216,12 +250,12 @@ export default function Customer() {
                                   placeholder={t(
                                     "WEG_03_0010_select_prefecture_default"
                                   )}
-                                  disabled={isDisabled}
+                                  readOnly={!isDisabled}
                                 />
                               </div>
-                              {errors.site_prefectures && (
+                              {errors.site_prefecture && (
                                 <p className="text-danger font-weight-bold">
-                                  {errors.site_prefectures.message}
+                                  {errors.site_prefecture.message}
                                 </p>
                               )}
                             </div>
@@ -255,7 +289,7 @@ export default function Customer() {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_city"
                                   )}
-                                  disabled={isDisabled}
+                                  readOnly={!isDisabled}
                                 />
                               </div>
                             </div>
@@ -295,6 +329,7 @@ export default function Customer() {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_address"
                                   )}
+                                  onChange={(e) => setSiteAddress(e.target.value)}
                                 ></textarea>
                               </div>
                               {errors.site_address && (
@@ -309,7 +344,13 @@ export default function Customer() {
                       <div className="map">
                         <div className="d-block flex-wrap align-items-center form-group">
                           <div className="form-group__control mt-5">
-                            <button className="btn btn-pink btn-sm" disabled>
+                            <button
+                              className="btn btn-pink btn-sm"
+                              disabled={(constructionNumber,
+                                siteName, 
+                                zipcode,
+                                siteAddress) === ''?true:false}
+                            >
                               {t("WEG_03_0010_btn_search_address")}
                             </button>
                             <p>
@@ -331,7 +372,7 @@ export default function Customer() {
                 </div>
               </div>
             </div>
-          </div>
+          </Container>
         </div>
       </div>
       <FooterNew />

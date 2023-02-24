@@ -1,6 +1,11 @@
 @import "../common/variables";
 @import "../common/mixins";
-
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
 body {
   font-family: "NotoSansJP", sans-serif;
   min-height: 100vh;
@@ -64,11 +69,11 @@ body {
             text-decoration: none;
 
             &:hover {
-              color: #55abd9;
+              color: $color-main;
               transition: all linear 0.3s;
             }
             .date {
-              color: #55abd9;
+              color: $color-main;
             }
           }
         }

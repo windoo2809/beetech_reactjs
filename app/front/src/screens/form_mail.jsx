@@ -25,6 +25,8 @@ function FormMail() {
     formState: { errors },
   } = useForm({
     shouldUseNativeValidation: true,
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const onSubmit = () => {
