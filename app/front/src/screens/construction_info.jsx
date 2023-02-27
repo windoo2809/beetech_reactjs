@@ -16,15 +16,13 @@ export default function ConstructionInfo(props) {
   const history = useHistory();
   const [isBtnSearchZip, setIsBtnSearchZip] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [constructionNumber, setConstructionNumber] = useState("");
-  const [siteName, setSiteName] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [siteAddress, setSiteAddress] = useState("");
+  const [isBtnSubmit, setBtnSubmit] = useState(false);
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -38,9 +36,13 @@ export default function ConstructionInfo(props) {
       site_address: "",
     },
   });
-  
+
   const onSubmit = (data) => {
     console.log(data);
+  };
+
+  const onClick = () => {
+    history.push(LinkName.LOGIN);
   };
 
   const handleChecked = () => {
@@ -50,18 +52,16 @@ export default function ConstructionInfo(props) {
     setValue("site_city", "");
   };
 
+  const zipcode = watch("zipcode");
+
   const handleZipcode = (e) => {
     if (zipcode) {
-      Postal.get(`${zipcode}`, function (address) {
+      Postal.get(zipcode, function (address) {
         setValue("site_prefecture", address.prefecture);
         setValue("site_city", address.city);
       });
     }
     e.preventDefault();
-  };
-
-  const onClick = () => {
-    history.push(LinkName.LOGIN);
   };
 
   return (
@@ -114,9 +114,6 @@ export default function ConstructionInfo(props) {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_construction_number"
                                   )}
-                                  onChange={(e) =>
-                                    setConstructionNumber(e.target.value)
-                                  }
                                 />
                               </div>
                               {errors.construction_number && (
@@ -158,9 +155,6 @@ export default function ConstructionInfo(props) {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_construction_name"
                                   )}
-                                  onChange={(e) =>
-                                    setSiteName(e.target.value)
-                                  }
                                 />
                               </div>
                               {errors.site_name && (
@@ -192,8 +186,6 @@ export default function ConstructionInfo(props) {
                                     placeholder={t(
                                       "WEG_03_0010_placeholder_post_code"
                                     )}
-                                    value={zipcode}
-                                    onChange={(e) => setZipcode(e.target.value)}
                                   />
                                 </div>
                                 {!isBtnSearchZip && (
@@ -211,7 +203,7 @@ export default function ConstructionInfo(props) {
                                   id="checkSearchZip"
                                   name="check_search_zip"
                                   className="form-check-input"
-                                  onClick={handleChecked}                                 
+                                  onClick={handleChecked}
                                 />
                                 <label
                                   htmlFor="checkSearchZip"
@@ -329,7 +321,6 @@ export default function ConstructionInfo(props) {
                                   placeholder={t(
                                     "WEG_03_0010_placeholder_address"
                                   )}
-                                  onChange={(e) => setSiteAddress(e.target.value)}
                                 ></textarea>
                               </div>
                               {errors.site_address && (
@@ -346,10 +337,7 @@ export default function ConstructionInfo(props) {
                           <div className="form-group__control mt-5">
                             <button
                               className="btn btn-pink btn-sm"
-                              disabled={(constructionNumber,
-                                siteName, 
-                                zipcode,
-                                siteAddress) === ''?true:false}
+                              disabled={!isBtnSubmit}
                             >
                               {t("WEG_03_0010_btn_search_address")}
                             </button>
