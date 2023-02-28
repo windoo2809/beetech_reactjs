@@ -7,7 +7,7 @@ import AppContext from "./context/appContext";
 const Login = lazy(() => import("./screens/login.jsx"));
 const FormMail = lazy(() => import("./screens/form_mail.jsx"));
 const StaticNotFound = lazy(() => import("./screens/notfound"));
-const Customer = lazy(() => import("./screens/customer.jsx"));
+const ConstructionInfo = lazy(() => import("./screens/construction_info.jsx"));
 const Dashboard = lazy(() => import("./screens/dashboard.jsx"));
 
 localStorage.setItem("i18nextLng", "jp");
@@ -39,7 +39,7 @@ function App() {
             <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
             <Route exact path={LinkName.LOGIN} component={Login} />
             <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
-            <Route exact path={LinkName.CUSTOMER} component={Customer} />
+            <Route exact path={LinkName.CONSTRUCTION_INFO} component={ConstructionInfo} />
             <Route exact path={LinkName.DASHBOARD} component={Dashboard} />
             <ProtectedRoute component={StaticNotFound} />
           </Switch>

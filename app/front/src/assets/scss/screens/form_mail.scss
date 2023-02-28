@@ -1,14 +1,12 @@
 @import "../common/variables";
 @import "../common/mixins";
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
 
-*,
-::after,
-::before {
-  box-sizing: border-box;
-}
-head {
-  display: none;
-}
 body {
   font-family: "NotoSansJP";
   min-height: 100vh;
@@ -19,6 +17,7 @@ body {
   font-weight: 400;
   word-break: break-word;
 }
+
 .sticky-footer {
   position: relative;
   display: flex;

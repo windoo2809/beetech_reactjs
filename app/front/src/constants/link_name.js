@@ -8,6 +8,6 @@ export default {
     MAIL_FORM: '/mail-form',
     FAQ: '/faq',
     BELL: '/bell',
-    CUSTOMER: '/customer',
+    CONSTRUCTION_INFO: '/construction-info',
     DASHBOARD: '/dashboard',
 };

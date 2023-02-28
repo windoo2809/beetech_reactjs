@@ -1,5 +1,5 @@
 // import scss
-import "../../assets/scss/screens/layouts/footer.scss";
+import "../../assets/scss/screens/layouts/footer_new.scss";
 
 // import library
 import React from "react";
@@ -12,8 +12,8 @@ function Footer(props) {
   return (
     <>
       <footer className="site-footer">
-        <Container>
-          <div className="site-footer__nav">
+         <Container>
+         <div className="site-footer__nav">
             <ul>
               <li>
                 <Link to={"#"} className="link">
@@ -46,15 +46,13 @@ function Footer(props) {
               </li>
             </ul>
           </div>
-
           <div className="site-footer__logo">
             <img src={logo} alt="logo" />
           </div>
-
           <div className="site-footer__copyright">
             &#169; 2017 Landmark, Ltd. All Rights Reserved.
           </div>
-        </Container>
+         </Container>
       </footer>
     </>
   );
