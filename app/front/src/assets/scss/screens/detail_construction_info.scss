@@ -53,12 +53,14 @@ body {
     }
   }
   .card-content {
+    padding: 5px;
+
     table {
       display: grid;
       grid-template-columns: 200px 1fr;
-      padding: 5px;
       margin-bottom: 5px;
-
+    }
+    .content {
       .map {
         margin-top: 25px;
       }

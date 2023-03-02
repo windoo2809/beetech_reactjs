@@ -85,12 +85,12 @@ export default function DetailConstructionInfo() {
                         </tr>
                       </tbody>
                     )}
-                    <div className="content">
-                      <div className="map">
-                        <span>{t("WEG_03_0010_label_map")}</span>
-                      </div>
-                    </div>
                   </table>
+                  <div className="content">
+                    <div className="map">
+                      <span>{t("WEG_03_0010_label_map")}</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="text-center card-footer">
                   <button
