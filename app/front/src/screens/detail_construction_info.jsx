@@ -91,47 +91,6 @@ export default function DetailConstructionInfo() {
                       </div>
                     </div>
                   </table>
-                  {/* <div className="content">
-                      <span className="name">
-                        {t("WEG_03_0010_label_construction_number")}
-                      </span>
-                      <span>{info.data.email}</span>
-                    </div>
-                    <div className="content">
-                      <span className="name">
-                        {t("WEG_03_0010_label_construction_name")}
-                      </span>
-                      <span>{}</span>
-                    </div>
-                    <div className="content">
-                      <span className="name">
-                        {t("WEG_03_0010_label_post_code")}
-                      </span>
-                      <span>{info.data.first_name}</span>
-                    </div>
-                    <div className="content">
-                      <span className="name">
-                        {t("WEG_03_0010_label_prefectures")}
-                      </span>
-                      <span>{info.data.last_name}</span>
-                    </div>
-                    <div className="content">
-                      <span className="name">
-                        {t("WEG_01_0100_label_city")}
-                      </span>
-                      <span>{info.data.last_name}</span>
-                    </div>
-                    <div className="content">
-                      <span className="name">
-                        {t("WEG_03_0010_label_address")}
-                      </span>
-                      <span>{info.data.last_name}</span>
-                    </div>
-                    <div className="content">
-                      <div className="map">
-                        <span>{t("WEG_03_0010_label_map")}</span>
-                      </div>
-                    </div> */}
                 </div>
                 <div className="text-center card-footer">
                   <button
