@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const detailConstructionInfo = {
   getDetailConstructionInfo(params) {
-    const url = "/users/2";
+    const url = "/users/3";
     return axiosClient.get(url, params);
   },
   postBranchId(params, config) {

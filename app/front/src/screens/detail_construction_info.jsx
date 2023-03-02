@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -15,18 +14,19 @@ export default function DetailConstructionInfo() {
   const [info, setInfo] = useState(null);
 
   const onClick = () => {
-    history.push(LinkName.LOGIN); 
+    history.push(LinkName.LOGIN);
   };
 
   useEffect(() => {
-    detailConstructionInfo
-      .getDetailConstructionInfo()
-      .then((response) => {
+    detailConstructionInfo.getDetailConstructionInfo().then(
+      (response) => {
         setInfo(response.data);
-      });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }, []);
-
-  if (!info) return null;
 
   return (
     <>
@@ -42,45 +42,96 @@ export default function DetailConstructionInfo() {
                   </button>
                 </div>
                 <div className="card-content">
-                  <div className="content">
-                    <span className="name">
-                      {t("WEG_03_0010_label_construction_number")}
-                    </span>
-                    <span className="abc">{info.data.id}</span>
-                  </div>
-                  <div className="content">
-                    <span className="name">
-                      {t("WEG_03_0010_label_construction_name")}
-                    </span>
-                    <span className="abc">{info.data.email}</span>
-                  </div>
-                  <div className="content">
-                    <span className="name">
-                      {t("WEG_03_0010_label_post_code")}
-                    </span>
-                    <span className="abc">{info.data.first_name}</span>
-                  </div>
-                  <div className="content">
-                    <span className="name">
-                      {t("WEG_03_0010_label_prefectures")}
-                    </span>
-                    <span className="abc">{info.data.last_name}</span>
-                  </div>
-                  <div className="content">
-                    <span className="name">{t("WEG_01_0100_label_city")}</span>
-                    <span className="abc">{info.data.last_name}</span>
-                  </div>
-                  <div className="content">
-                    <span className="name">
-                      {t("WEG_03_0010_label_address")}
-                    </span>
-                    <span className="abc">{info.data.last_name}</span>
-                  </div>
-                  <div className="content">
-                    <div className="map">
-                      <span>{t("WEG_03_0010_label_map")}</span>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th> {t("WEG_03_0010_label_construction_number")}</th>
+                      </tr>
+                      <tr>
+                        <th> {t("WEG_03_0010_label_construction_name")}</th>
+                      </tr>
+                      <tr>
+                        <th> {t("WEG_03_0010_label_post_code")}</th>
+                      </tr>
+                      <tr>
+                        <th> {t("WEG_03_0010_label_prefectures")}</th>
+                      </tr>
+                      <tr>
+                        <th> {t("WEG_01_0100_label_city")}</th>
+                      </tr>
+                      <tr>
+                        <th> {t("WEG_03_0010_label_address")}</th>
+                      </tr>
+                    </thead>
+                    {info && (
+                      <tbody>
+                        <tr>
+                          <td>{info.data.id}</td>
+                        </tr>
+                        <tr>
+                          <td>{info.data.email}</td>
+                        </tr>
+                        <tr>
+                          <td>{info.data.first_name}</td>
+                        </tr>
+                        <tr>
+                          <td>{info.data.last_name}</td>
+                        </tr>
+                        <tr>
+                          <td>{info.data.email}</td>
+                        </tr>
+                        <tr>
+                          <td>{info.data.email}</td>
+                        </tr>
+                      </tbody>
+                    )}
+                    <div className="content">
+                      <div className="map">
+                        <span>{t("WEG_03_0010_label_map")}</span>
+                      </div>
                     </div>
-                  </div>
+                  </table>
+                  {/* <div className="content">
+                      <span className="name">
+                        {t("WEG_03_0010_label_construction_number")}
+                      </span>
+                      <span>{info.data.email}</span>
+                    </div>
+                    <div className="content">
+                      <span className="name">
+                        {t("WEG_03_0010_label_construction_name")}
+                      </span>
+                      <span>{}</span>
+                    </div>
+                    <div className="content">
+                      <span className="name">
+                        {t("WEG_03_0010_label_post_code")}
+                      </span>
+                      <span>{info.data.first_name}</span>
+                    </div>
+                    <div className="content">
+                      <span className="name">
+                        {t("WEG_03_0010_label_prefectures")}
+                      </span>
+                      <span>{info.data.last_name}</span>
+                    </div>
+                    <div className="content">
+                      <span className="name">
+                        {t("WEG_01_0100_label_city")}
+                      </span>
+                      <span>{info.data.last_name}</span>
+                    </div>
+                    <div className="content">
+                      <span className="name">
+                        {t("WEG_03_0010_label_address")}
+                      </span>
+                      <span>{info.data.last_name}</span>
+                    </div>
+                    <div className="content">
+                      <div className="map">
+                        <span>{t("WEG_03_0010_label_map")}</span>
+                      </div>
+                    </div> */}
                 </div>
                 <div className="text-center card-footer">
                   <button

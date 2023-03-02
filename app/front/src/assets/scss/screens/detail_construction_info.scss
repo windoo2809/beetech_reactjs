@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
   font-size: 14px;
   color: #273445;
-  font-weight: 400;
+  font-weight: 700;
   word-break: break-word;
 }
 
@@ -53,10 +53,11 @@ body {
     }
   }
   .card-content {
-    .content {
+    table {
       display: grid;
       grid-template-columns: 200px 1fr;
       padding: 5px;
+      margin-bottom: 5px;
 
       .map {
         margin-top: 25px;
