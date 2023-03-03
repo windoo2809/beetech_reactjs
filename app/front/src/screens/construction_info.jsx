@@ -29,7 +29,7 @@ export default function ConstructionInfo(props) {
     reValidateMode: "onChange",
     defaultValues: {
       construction_number: "",
-      site_name: "",
+      construction_name: "",
       zipcode: "",
       site_prefecture: "",
       site_city: "",
@@ -137,7 +137,7 @@ export default function ConstructionInfo(props) {
                                 <input
                                   className="form-control"
                                   type="text"
-                                  {...register("site_name", {
+                                  {...register("construction_name", {
                                     required: {
                                       value: true,
                                       message: replaceString(t("VALID_006"), [
@@ -157,9 +157,9 @@ export default function ConstructionInfo(props) {
                                   )}
                                 />
                               </div>
-                              {errors.site_name && (
+                              {errors.construction_name && (
                                 <p className="text-danger font-weight-bold">
-                                  {errors.site_name.message}
+                                  {errors.construction_name.message}
                                 </p>
                               )}
                             </div>

@@ -9,5 +9,6 @@ export default {
     FAQ: '/faq',
     BELL: '/bell',
     CONSTRUCTION_INFO: '/construction-info',
+    DETAIL_CONSTRUCTION_INFO: '/detail-construction-info',
     DASHBOARD: '/dashboard',
 };

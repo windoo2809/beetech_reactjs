@@ -1,0 +1,79 @@
+@import "../common/variables";
+@import "../common/mixins";
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
+
+body {
+  font-family: "NotoSansJP";
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.sticky-footer {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  -moz-flex-direction: column;
+  flex-direction: column;
+
+  .page-template {
+    padding-top: 12px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
+}
+
+.template-detail-construction-info {
+  padding: 12px;
+  justify-content: center;
+  background-color: #efefef;
+
+  .action-box {
+    margin-top: 20px;
+    text-align: right;
+
+    .btn-change {
+      background-color: #273445;
+      border: 0;
+      border-radius: 25px;
+      font-size: 1.2rem;
+
+      @media (max-width: 575px) {
+        width: 100%;
+      }
+    }
+  }
+  .card-content {
+    padding: 5px;
+
+    table {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      margin-bottom: 5px;
+    }
+    .content {
+      .map {
+        margin-top: 25px;
+      }
+    }
+  }
+  .card-footer {
+    border-top: unset;
+    font-size: 13px;
+    background-color: unset;
+
+    .btn-cancel {
+      background-color: #7d858f;
+      border: 0;
+    }
+  }
+}
