@@ -19,8 +19,6 @@ export default function ParkingLot() {
     register,
     handleSubmit,
     watch,
-    getValues,
-    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -45,24 +43,22 @@ export default function ParkingLot() {
     endDate,
   } = watch();
 
-  const listData =
-    Number(wagonCar) +
-    Number(amuontLightTruck) +
-    Number(twoTTruck) +
-    Number(amountDiff);
-
   useEffect(() => {
-    setTotal(listData);
-  });
+    setTotal(
+      Number(wagonCar) +
+        Number(amuontLightTruck) +
+        Number(twoTTruck) +
+        Number(amountDiff)
+    );
+  }, [wagonCar, amuontLightTruck, twoTTruck, amountDiff]);
 
-  const today = new Date();
-  const fiveYearsLater = new Date(today.getFullYear() + 5, 0, 1);
-  const fiveYearsAgo = new Date(today.getFullYear() - 5, 0, 1);
-  const checkStartDate = new Date(startDate);
-  const checkEndDate = new Date(endDate);
-
-  const onSubmit = (e) => {
-    if (listData === 0) {
+  const onSubmit = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const fiveYearsLater = new Date(today.getFullYear() + 5, 0, 1);
+    const checkStartDate = new Date(startDate);
+    const checkEndDate = new Date(endDate);
+    if (total === 0) {
       alert(t("CMN0013-I"));
     }
     if (checkEndDate < checkStartDate) {
@@ -72,12 +68,11 @@ export default function ParkingLot() {
           t("WEG_03_0101_startDate"),
         ])
       );
-    } else if (fiveYearsLater < checkStartDate || checkStartDate < today) {
+    } else if (checkStartDate < today) {
       alert(replaceString(t("CMN0017-I"), [t("WEG_03_0101_startDate"), "5年"]));
-    } else if (fiveYearsAgo > checkEndDate || checkEndDate < today) {
+    } else if (checkEndDate > fiveYearsLater) {
       alert(replaceString(t("CMN0017-I"), [t("WEG_03_0101_endDate"), "5年"]));
     }
-    console.log(e);
   };
 
   const onClick = () => {
@@ -383,12 +378,16 @@ export default function ParkingLot() {
                     </div>
                     <div className="action-box">
                       <button
+                        type="submit"
                         className="btn btn-secondary back-button"
                         onClick={onClick}
                       >
                         {t("WEG_03_0101_returnConstructionInfo")}
                       </button>
-                      <button className="btn btn-primary next-button">
+                      <button
+                        type="submit"
+                        className="btn btn-primary next-button"
+                      >
                         {t("WEG_03_0101_next")}
                       </button>
                     </div>
