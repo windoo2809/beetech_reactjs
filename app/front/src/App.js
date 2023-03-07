@@ -8,6 +8,7 @@ const Login = lazy(() => import("./screens/login.jsx"));
 const FormMail = lazy(() => import("./screens/form_mail.jsx"));
 const StaticNotFound = lazy(() => import("./screens/notfound"));
 const ConstructionInfo = lazy(() => import("./screens/construction_info.jsx"));
+const DetailConstructionInfo = lazy(() => import("./screens/detail_construction_info.jsx"));
 const Dashboard = lazy(() => import("./screens/dashboard.jsx"));
 const ParkingLot = lazy(() => import("./screens/parking_lot.jsx"));
 

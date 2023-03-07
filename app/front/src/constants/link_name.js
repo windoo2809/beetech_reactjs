@@ -9,6 +9,10 @@ export default {
     FAQ: '/faq',
     BELL: '/bell',
     CONSTRUCTION_INFO: '/construction-info',
+<<<<<<< app/front/src/constants/link_name.js
     PARKING_LOT: '/parking-lot',
+=======
+    DETAIL_CONSTRUCTION_INFO: '/detail-construction-info',
+>>>>>>> app/front/src/constants/link_name.js
     DASHBOARD: '/dashboard',
 };
