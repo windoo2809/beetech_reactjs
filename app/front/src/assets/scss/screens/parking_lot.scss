@@ -1,0 +1,162 @@
+@import "../common/variables";
+@import "../common/mixins";
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
+body {
+  font-family: "NotoSansJP", sans-serif;
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 700;
+  word-break: break-word;
+}
+.sticky-footer {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+.page-template {
+  padding-top: 12px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+
+  .template-parking-lot {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 60%;
+    justify-content: center;
+    background-color: #efefef;
+    @media (min-width: 480px) and (max-width: 991px){
+      grid-template-columns: 100%;
+    }
+    @media (max-width: 479px) {
+      grid-template-columns: 100%;
+    }
+
+    form {
+      .group-form {
+        .form-group {
+          label {
+            margin: 0;
+            span{
+              color: red;
+            }
+          }
+          .form-control {
+            padding: 8px 12px;
+            height: auto;
+            border-color: #eee;
+
+            &::placeholder {
+              opacity: 0.5;
+            }
+          }
+          &__check {
+            display: flex;
+            justify-content: space-evenly;
+          }
+        }
+        .group-number {
+          .title {
+            margin-bottom: 10px;
+
+            span{
+              color: red;
+            }
+          }
+          .form-group {
+            display: grid;
+            grid-template-columns: 90px 300px 40px auto;
+            align-items: center;
+            justify-items: center;
+            @media (min-width: 480px) and (max-width: 991px){
+              grid-template-columns: 90px auto 40px auto;
+
+            }
+            @media (max-width: 479px) {
+              grid-template-columns: 70px auto 40px auto;
+            }
+            span {
+              text-align: center;
+            }
+            .form-check {
+              height: 17px;
+            }
+          }
+        }
+        .total-car {
+          .form-group {
+            display: grid;
+            align-items: center;
+            grid-template-columns: auto 40px 15px;;
+            @media (max-width: 479px) {
+              grid-template-columns: auto 30px 15px;
+            }
+            p {
+              margin-top: 21px;
+            }
+            span {
+              color: red;
+              font-weight: bold;
+              font-size: 25px;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      .action-box {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: space-between;
+        .back-button {
+          border: 0;
+          margin: auto;
+          font-size: 1.2rem;
+          width: 250px;
+          height: 40px;
+          @media (min-width: 480px) and (max-width: 991px){
+            width: 150px;
+            font-size: 14px;
+          }
+          @media (max-width: 479px) {
+            width: 150px;
+            font-size: 14px;
+
+          }
+          @media (max-width: 375px) {
+            width: 150px;
+            font-size: 14px;
+          }
+        }
+        .next-button {
+          background-color: #273445;
+          border: 0;
+          font-size: 1.2rem;
+          width: 250px;
+          height: 40px;
+          @media (min-width: 480px) and (max-width: 991px){
+            width: 150px;
+            font-size: 14px;
+          }
+          @media (max-width: 479px) {
+            width: 150px;
+          }
+          @media (max-width: 375px) {
+            width: 150px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+.text-error {
+  color: #ff0000;
+}
