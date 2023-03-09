@@ -10,6 +10,7 @@ const StaticNotFound = lazy(() => import("./screens/notfound"));
 const ConstructionInfo = lazy(() => import("./screens/construction_info.jsx"));
 const DetailConstructionInfo = lazy(() => import("./screens/detail_construction_info.jsx"));
 const Dashboard = lazy(() => import("./screens/dashboard.jsx"));
+const ParkingLot = lazy(() => import("./screens/parking_lot.jsx"));
 
 localStorage.setItem("i18nextLng", "jp");
 
@@ -41,7 +42,7 @@ function App() {
             <Route exact path={LinkName.LOGIN} component={Login} />
             <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
             <Route exact path={LinkName.CONSTRUCTION_INFO} component={ConstructionInfo} />
-            <Route exact path={LinkName.DETAIL_CONSTRUCTION_INFO} component={DetailConstructionInfo} />
+            <Route exact path={LinkName.PARKING_LOT} component={ParkingLot} />
             <Route exact path={LinkName.DASHBOARD} component={Dashboard} />
             <ProtectedRoute component={StaticNotFound} />
           </Switch>
