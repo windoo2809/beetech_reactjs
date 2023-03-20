@@ -4,13 +4,14 @@ import ProtectedRoute from "./auth/protected_route";
 import PageLoader from "./components/page_loader";
 import LinkName from "./constants/link_name";
 import AppContext from "./context/appContext";
-const Login = lazy(() => import("./screens/login.jsx"));
-const FormMail = lazy(() => import("./screens/form_mail.jsx"));
+const Login = lazy(() => import("./screens/login/form_login"));
+const FormMail = lazy(() => import("./screens/formMail/form_mail"));
 const StaticNotFound = lazy(() => import("./screens/notfound"));
-const ConstructionInfo = lazy(() => import("./screens/construction_info.jsx"));
-const DetailConstructionInfo = lazy(() => import("./screens/detail_construction_info.jsx"));
+const ListConstruction = lazy(() => import("./screens/listConstructioninfo/list_construction_info"));
+const ConstructionInfo = lazy(() => import("./screens/constructionInfo/construction_info"));
+const DetailConstructionInfo = lazy(() => import("./screens/detailConstructionInfo/detail_construction_info"));
 const Dashboard = lazy(() => import("./screens/dashboard.jsx"));
-const ParkingLot = lazy(() => import("./screens/parking_lot.jsx"));
+const ParkingLot = lazy(() => import("./screens/parkingLot/parking_lot"));
 
 localStorage.setItem("i18nextLng", "jp");
 
@@ -41,7 +42,9 @@ function App() {
             <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
             <Route exact path={LinkName.LOGIN} component={Login} />
             <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
+            <Route exact path={LinkName.LIST_CONSTRUCTION} component={ListConstruction} />
             <Route exact path={LinkName.CONSTRUCTION_INFO} component={ConstructionInfo} />
+            <Route exact path={LinkName.DETAIL_CONSTRUCTION_INFO} component={DetailConstructionInfo} />
             <Route exact path={LinkName.PARKING_LOT} component={ParkingLot} />
             <Route exact path={LinkName.DASHBOARD} component={Dashboard} />
             <ProtectedRoute component={StaticNotFound} />
