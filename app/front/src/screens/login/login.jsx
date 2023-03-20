@@ -11,7 +11,7 @@ import HeaderNew from "../layouts/header_new";
 import FooterNew from "../layouts/footer_new";
 import FormLoginInput from "./components/form";
 
-export default function FormLogin(props) {
+export default function Login(props) {
   const [t] = useTranslation();
   const methods = useForm({
     mode: "onChange",
