@@ -4,7 +4,7 @@ import ProtectedRoute from "./auth/protected_route";
 import PageLoader from "./components/page_loader";
 import LinkName from "./constants/link_name";
 import AppContext from "./context/appContext";
-const Login = lazy(() => import("./screens/login/form_login"));
+const Login = lazy(() => import("./screens/login/login"));
 const FormMail = lazy(() => import("./screens/formMail/form_mail"));
 const StaticNotFound = lazy(() => import("./screens/notfound"));
 const ListConstruction = lazy(() => import("./screens/listConstructioninfo/list_construction_info"));
