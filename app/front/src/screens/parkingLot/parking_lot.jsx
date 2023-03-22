@@ -10,7 +10,7 @@ import LinkName from "../../constants/link_name";
 import "../../assets/scss/screens/parking_lot.scss";
 import ParkingLotInput from "./components/form";
 
-export default function FormParkingLot() {
+export default function ParkingLot() {
   const [t] = useTranslation();
   const [total, setTotal] = useState(0);
   const history = useHistory();

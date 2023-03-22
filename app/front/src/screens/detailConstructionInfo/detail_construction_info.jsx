@@ -9,7 +9,7 @@ import FooterNew from "../layouts/footer_new";
 import "../../assets/scss/screens/detail_construction_info.scss";
 import DetailConstructionInfoInput from "./components/form";
 
-export default function DetailConstructionInfoController() {
+export default function DetailConstructionInfo() {
   const [t] = useTranslation();
   const history = useHistory();
   const [info, setInfo] = useState(null);

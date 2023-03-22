@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import LinkName from "../../../constants/link_name";
 import validation from "../../../constants/validation";
 
-export default function FormLoginInput() {
+export default function LoginInput() {
   const [t] = useTranslation();
 
   const {

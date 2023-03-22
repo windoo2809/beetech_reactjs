@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-export default function ListConstructionInfo(props) {
+export default function ListConstructionInfoInput(props) {
   const [t] = useTranslation();
   const {
     isActive,

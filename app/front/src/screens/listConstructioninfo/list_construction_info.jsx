@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Container, Dropdown } from "react-bootstrap";
+import { Container, Pagination, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import HeaderNew from "../layouts/header_new";
@@ -16,13 +16,13 @@ import minus from "../../assets/images/icon/minus.png";
 import circle from "../../assets/images/icon/circle-solid.svg";
 import yellow_circle from "../../assets/images/icon/yellow-circle.svg";
 import "../../assets/scss/screens/list_construction.scss";
-import ListConstructionInfo from "./components/form";
+import ListConstructionInfoInput from "./components/form";
 
-export default function ListConstructionController(props) {
+export default function ListConstructionInfo(props) {
   const [t] = useTranslation();
   const [isActive, setIsActive] = useState(false);
   const [isBtn, setIsBtn] = useState(false);
-  const [pagination, setPagination] = useState([
+  const [paginations] = useState([
     {
       page: 1,
     },
@@ -33,6 +33,7 @@ export default function ListConstructionController(props) {
       page: 3,
     },
   ]);
+  const [pageSize, setPageSize] = useState(50);
   const [estimates, setEstimates] = useState([
     {
       type: 1,
@@ -142,25 +143,35 @@ export default function ListConstructionController(props) {
     },
   ]);
 
-  const Pagination = () => {
+  const pagination = () => {
     return (
       <>
-        {pagination.map((item) => (
-          <button key={item.page}>
-            <span>{item.page}</span>
-          </button>
-        ))}
-        <div className="total-page">
-          <label>合{pagination.length}計</label>
-        </div>
-        <Dropdown className="d-inline">
-          <Dropdown.Toggle id="dropdown-autoclose-true">50</Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="#">5</Dropdown.Item>
-            <Dropdown.Item href="#">10</Dropdown.Item>
-            <Dropdown.Item href="#">20</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <Pagination>
+          <Pagination.First />
+          <Pagination.Prev />
+          {paginations.map((item) => (
+            <Pagination.Item key={item.page}>{item.page}</Pagination.Item>
+          ))}
+          <Pagination.Next />
+          <Pagination.Last />
+          <div className="page-total">
+            <span>合{paginations.length}計</span>
+          </div>
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-autoclose-true">
+              {pageSize}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {[5, 10, 20, 25, 50, 100].map((pageSize) => (
+                <Dropdown.Item
+                  key={pageSize}
+                >
+                  {pageSize}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Pagination>
       </>
     );
   };
@@ -258,10 +269,10 @@ export default function ListConstructionController(props) {
       <div className="sticky-footer">
         <div className="page-template">
           <Container>
-            <div className="paginate">{Pagination()}</div>
             <div className="wrapper">
+              {pagination()}
               <div className="template-list-construction">
-                <ListConstructionInfo
+                <ListConstructionInfoInput
                   setIsActive={setIsActive}
                   isActive={!isActive}
                   minus={minus}
