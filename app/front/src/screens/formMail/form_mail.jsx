@@ -5,7 +5,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import LinkName from "../../constants/link_name";
 import Common from "../../constants/common";
 import { replaceString } from "../../helpers/helpers";
-import DialogSendMail from "./dialog_send_mail";
 import DialogMessage from "../../components/modal/modal_common";
 import formMail from "../../api/formMail";
 import HeaderNew from "../layouts/header_new";
@@ -15,7 +14,6 @@ import "../../assets/scss/screens/form_mail.scss";
 
 export default function FormMail() {
   const [t] = useTranslation();
-  const [modalDialogSendMail, setModalDialogSendMail] = useState(false);
   const [modalDialogMessage, setModalDialogMessage] = useState({
     modal: false,
     onOk: () => {},
@@ -35,7 +33,13 @@ export default function FormMail() {
   const { handleSubmit, getValues, setValue } = methods;
 
   const handleSubmitForm = () => {
-    setModalDialogSendMail(true);
+    setModalDialogMessage({
+      modal: true,
+      btnCancel: true,
+      onOk: () => callApiFormMail(),
+      onCancel: closeDialog,
+      message: t("FROM_MAIL_TEXT_DIALOG_SEND"),
+    });
   };
 
   const callApiFormMail = () => {
@@ -49,6 +53,7 @@ export default function FormMail() {
           if (response.status === Common.HTTP_STATUS.OK) {
             setModalDialogMessage({
               modal: true,
+              btnCancel: false,
               onOk: () => sendFormMailSuccess(),
               message: t("FROM_MAIL_TEXT_DIALOG_SENT"),
             });
@@ -83,18 +88,12 @@ export default function FormMail() {
 
   const closeDialog = () => {
     setModalDialogMessage((data) => ({ ...data, modal: false }));
-    setModalDialogSendMail(false);
+    
   };
 
   return (
     <>
       <DialogMessage {...modalDialogMessage} />
-
-      <DialogSendMail
-        modal={modalDialogSendMail}
-        onCancel={() => setModalDialogSendMail(false)}
-        handleClickSendMail={callApiFormMail}
-      />
       <HeaderNew />
       <div className="sticky-footer not-login">
         <div className="page-template">
