@@ -55,7 +55,6 @@ export default function ConstructionInfo(props) {
         setValue("site_city", address.city);
       });
     }
-    e.preventDefault();
   };
 
   return (

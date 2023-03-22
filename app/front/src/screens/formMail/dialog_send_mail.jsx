@@ -12,17 +12,12 @@ export default function DialogSendMail(props) {
       <div className="text-center box-modal-action">
         <button
           className="btn btn-lg btn-primary"
-          onClick={() => {
-            props.handleClickSendMail();
-          }}
+          onClick={props.handleClickSendMail}
         >
-          OK
+          {t("LABEL_OK")}
         </button>
 
-        <button
-          className="btn btn-lg btn-secondary"
-          onClick={props.onCancel}
-        >
+        <button className="btn btn-lg btn-secondary" onClick={props.onCancel}>
           {t("WEG_05_0103_cancel")}
         </button>
       </div>

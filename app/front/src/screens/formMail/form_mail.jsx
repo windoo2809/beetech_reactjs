@@ -6,7 +6,7 @@ import LinkName from "../../constants/link_name";
 import Common from "../../constants/common";
 import { replaceString } from "../../helpers/helpers";
 import DialogSendMail from "./dialog_send_mail";
-import DialogMessage from "./dialog_message_sent";
+import DialogMessage from "../../components/modal/modal_common";
 import formMail from "../../api/formMail";
 import HeaderNew from "../layouts/header_new";
 import FooterNew from "../layouts/footer_new";

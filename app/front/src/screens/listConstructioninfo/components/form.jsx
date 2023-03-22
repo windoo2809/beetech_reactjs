@@ -3,24 +3,27 @@ import { useTranslation } from "react-i18next";
 
 export default function ListConstructionInfo(props) {
   const [t] = useTranslation();
+  const {
+    isActive,
+    setIsActive,
+    plus,
+    minus,
+    listIconEstimate,
+    listEstimate,
+    listLabelEstimate,
+    isBtn,
+  } = props;
 
   return (
     <div className="accordion-item">
       <div className="accordion-heading">
         <span>{t("現場名")}</span>
-        <button
-          className="icon"
-          onClick={() => props.setIsActive(props.isActive)}
-        >
-          {props.isActive ? (
-            <img src={props.minus} alt="" />
-          ) : (
-            <img src={props.plus} alt="" />
-          )}
+        <button className="icon" onClick={() => setIsActive(isActive)}>
+          {isActive ? <img src={minus} alt="" /> : <img src={plus} alt="" />}
         </button>
       </div>
 
-      {props.isActive && (
+      {isActive && (
         <>
           <div className="accordion-title">
             <span>{t("工事情報：工事番号, 現場名,現場住所")}</span>
@@ -48,15 +51,13 @@ export default function ListConstructionInfo(props) {
                 </label>
               </div>
               <div className="estimate-bar">
-                <div className="icon-estimate">{props.listIconEstimate()}</div>
-                <div className="estimate">{props.listEstimate()}</div>
-                <div className="label-estimate">
-                  {props.listLabelEstimate()}
-                </div>
+                <div className="icon-estimate">{listIconEstimate()}</div>
+                <div className="estimate">{listEstimate()}</div>
+                <div className="label-estimate">{listLabelEstimate()}</div>
                 <div className="date">{t("契約開始日")}</div>
               </div>
               <div className="action-box">
-                {props.isBtn && (
+                {isBtn && (
                   <>
                     <label>({t("入金")})</label>
                     <button type="submit" className="btn btn-primary">

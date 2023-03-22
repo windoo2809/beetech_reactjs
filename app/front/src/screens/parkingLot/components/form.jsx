@@ -7,6 +7,7 @@ import validation from "../../../constants/validation";
 
 export default function ParkingLotInput(props) {
   const [t] = useTranslation();
+  const {total} = props;
 
   const {
     register,
@@ -21,7 +22,7 @@ export default function ParkingLotInput(props) {
             className="form-check-input"
             type="radio"
             value="1"
-            defaultChecked
+            {...register("requestDetails")}
           />
           <label htmlFor="option-1" className="form-check-label">
             {t("WEG_03_0101_selectRequestTypeTitle")}
@@ -33,6 +34,7 @@ export default function ParkingLotInput(props) {
             className="form-check-input"
             type="radio"
             value="2"
+            {...register("requestDetails")}
           />
           <label htmlFor="option-2" className="form-check-label">
             {t("WEG_03_0101_requestDetailsBookParking")}
@@ -239,7 +241,7 @@ export default function ParkingLotInput(props) {
       <div className="total-car">
         <div className="form-group">
           <label>{t("WEG_03_0101_totalNumberUsers")}</label>
-          <span>{props.total}</span>
+          <span>{total}</span>
           <p>{t("WEG_03_0101_stand")}</p>
         </div>
       </div>

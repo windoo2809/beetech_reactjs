@@ -23,12 +23,13 @@ export default function FormParkingLot() {
       amountDiff: 0,
       startDate: "",
       endDate: "",
+      requestDetails: "1"
     },
     shouldUseNativeValidation: true,
     mode: "onChange",
     reValidateMode: "onChange",
   });
-  
+
   const { handleSubmit, watch } = methods;
 
   const { wagonCar, amuontLightTruck, twoTTruck, amountDiff } = watch();
@@ -81,6 +82,7 @@ export default function FormParkingLot() {
                   <FormProvider {...methods}>
                     <form onSubmit={handleSubmit(handleSubmitForm)}>
                       <ParkingLotInput total={total} />
+
                       <div className="action-box">
                         <button
                           type="submit"

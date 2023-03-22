@@ -3,7 +3,7 @@ import { Trans } from "react-i18next";
 import { Modal } from "reactstrap";
 import "../../assets/scss/screens/modal.scss";
 
-function DialogMessage(props) {
+export default function DialogMessage(props) {
     return (
         <Modal isOpen={props.modal} className="dialog_message_back">
             <div className="text-center">{props.message}</div>
@@ -15,4 +15,3 @@ function DialogMessage(props) {
         </Modal>
     );
 }
-export default DialogMessage;

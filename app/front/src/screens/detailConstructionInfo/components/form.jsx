@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 export default function DetailConstructionInfoInput(props) {
   const [t] = useTranslation();
+  const {info} = props;
 
   return (
     <div className="card-content">
@@ -27,25 +28,25 @@ export default function DetailConstructionInfoInput(props) {
             <th> {t("WEG_03_0010_label_address")}</th>
           </tr>
         </thead>
-        {props.info && (
+        {info && (
           <tbody>
             <tr>
-              <td>{props.info.data.id}</td>
+              <td>{info.data.id}</td>
             </tr>
             <tr>
-              <td>{props.info.data.email}</td>
+              <td>{info.data.email}</td>
             </tr>
             <tr>
-              <td>{props.info.data.first_name}</td>
+              <td>{info.data.first_name}</td>
             </tr>
             <tr>
-              <td>{props.info.data.last_name}</td>
+              <td>{info.data.last_name}</td>
             </tr>
             <tr>
-              <td>{props.info.data.email}</td>
+              <td>{info.data.email}</td>
             </tr>
             <tr>
-              <td>{props.info.data.email}</td>
+              <td>{info.data.email}</td>
             </tr>
           </tbody>
         )}

@@ -6,6 +6,7 @@ import validation from "../../../constants/validation";
 
 export default function ConstructionInfoInput(props) {
   const [t] = useTranslation();
+  const { isBtnSearchZip, handleZipcode, handleChecked, isDisabled } = props;
   const {
     register,
     formState: { errors },
@@ -99,11 +100,8 @@ export default function ConstructionInfoInput(props) {
                   placeholder={t("WEG_03_0010_placeholder_post_code")}
                 />
               </div>
-              {props.isBtnSearchZip && (
-                <button
-                  className="btn btn-search-zip"
-                  onClick={props.handleZipcode}
-                >
+              {isBtnSearchZip && (
+                <button className="btn btn-search-zip" onClick={handleZipcode}>
                   {t("WEG_03_0010_text_btn_search_zip")}
                 </button>
               )}
@@ -114,7 +112,7 @@ export default function ConstructionInfoInput(props) {
                 id="checkSearchZip"
                 name="check_search_zip"
                 className="form-check-input"
-                onClick={props.handleChecked}
+                onClick={handleChecked}
               />
               <label htmlFor="checkSearchZip" className="form-check-label">
                 {t("WEG_03_0010_text_check_search_zip")}
@@ -144,7 +142,7 @@ export default function ConstructionInfoInput(props) {
                   required: replaceString(t("VALID_006"), ["都道府県"]),
                 })}
                 placeholder={t("WEG_03_0010_select_prefecture_default")}
-                readOnly={props.isDisabled}
+                readOnly={isDisabled}
               />
             </div>
             {errors.site_prefecture && (
@@ -172,7 +170,7 @@ export default function ConstructionInfoInput(props) {
                   },
                 })}
                 placeholder={t("WEG_03_0010_placeholder_city")}
-                readOnly={props.isDisabled}
+                readOnly={isDisabled}
               />
             </div>
           </div>
