@@ -143,7 +143,7 @@ export default function ListConstructionInfo(props) {
     },
   ]);
 
-  const pagination = () => {
+  const listPagination = () => {
     return (
       <>
         <Pagination>
@@ -163,11 +163,7 @@ export default function ListConstructionInfo(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {[5, 10, 20, 25, 50, 100].map((pageSize) => (
-                <Dropdown.Item
-                  key={pageSize}
-                >
-                  {pageSize}
-                </Dropdown.Item>
+                <Dropdown.Item key={pageSize}>{pageSize}</Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
@@ -270,7 +266,7 @@ export default function ListConstructionInfo(props) {
         <div className="page-template">
           <Container>
             <div className="wrapper">
-              {pagination()}
+              {listPagination()}
               <div className="template-list-construction">
                 <ListConstructionInfoInput
                   setIsActive={setIsActive}

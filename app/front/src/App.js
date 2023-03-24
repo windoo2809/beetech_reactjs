@@ -7,7 +7,7 @@ import AppContext from "./context/appContext";
 const Login = lazy(() => import("./screens/login/login"));
 const FormMail = lazy(() => import("./screens/formMail/form_mail"));
 const StaticNotFound = lazy(() => import("./screens/notfound"));
-const ListConstruction = lazy(() => import("./screens/listConstructioninfo/list_construction_info"));
+const ListConstructionInfo = lazy(() => import("./screens/listConstructionInfo/list_construction_info"));
 const ConstructionInfo = lazy(() => import("./screens/constructionInfo/construction_info"));
 const DetailConstructionInfo = lazy(() => import("./screens/detailConstructionInfo/detail_construction_info"));
 const Dashboard = lazy(() => import("./screens/dashboard.jsx"));
@@ -42,7 +42,7 @@ function App() {
             <Route exact path={LinkName.PAGE_LOGIN} component={Login} />
             <Route exact path={LinkName.LOGIN} component={Login} />
             <Route exact path={LinkName.MAIL_FORM} component={FormMail} />
-            <Route exact path={LinkName.LIST_CONSTRUCTION} component={ListConstruction} />
+            <Route exact path={LinkName.LIST_CONSTRUCTION_INFO} component={ListConstructionInfo} />
             <Route exact path={LinkName.CONSTRUCTION_INFO} component={ConstructionInfo} />
             <Route exact path={LinkName.DETAIL_CONSTRUCTION_INFO} component={DetailConstructionInfo} />
             <Route exact path={LinkName.PARKING_LOT} component={ParkingLot} />
