@@ -96,7 +96,6 @@ body {
         margin-bottom: 16px;
         display: grid;
         grid-template-columns: 116px 1fr;
-        align-items: center;
         @media (max-width: 767px) {
           grid-template-columns: 1fr;
         }
@@ -117,7 +116,7 @@ body {
         }
         .error-active {
           transition: all 0.4s ease-in-out;
-          height: 100%;
+          height: auto;
         }
       }
       .text-error {

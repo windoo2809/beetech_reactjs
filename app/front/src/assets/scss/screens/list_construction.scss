@@ -1,0 +1,241 @@
+@import "../common/variables";
+@import "../common/mixins";
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  -moz-flex-direction: column;
+  flex-direction: column;
+}
+
+body {
+  font-family: "NotoSansJP", sans-serif;
+  min-height: 100vh;
+  line-height: 1.8em;
+  overflow-x: hidden;
+  font-size: 14px;
+  color: #273445;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.sticky-footer {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+
+  .page-template {
+    padding-top: 12px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+
+    .container {
+      .pagination {
+        justify-content: flex-end;
+        background-color: #efefef;
+        padding-right: 12px;
+        .page-item {
+          margin: 5px;
+          a {
+            background-color: #273445;
+            color: white;
+          }
+        }
+        .page-total {
+          display: flex;
+          align-items: center;
+          margin: 5px;
+        }
+        .dropdown {
+          margin: 5px;
+          .dropdown-toggle {
+            margin: 0;
+            width: 100px;
+            background-color: white;
+            border: 1px solid white;
+            color: #273445;
+
+            &::after {
+              border: 0;
+              margin-left: 10px;
+              content: "<";
+              vertical-align: 0;
+            }
+          }
+          .dropdown-menu {
+            min-width: 6.4rem;
+
+            .dropdown-item {
+              padding: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.template-list-construction {
+  padding: 12px;
+  background-color: #efefef;
+
+  label {
+    margin: 0;
+  }
+
+  .accordion-item {
+    .accordion-heading {
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      background-color: #273445;
+      height: 50px;
+
+      span {
+        color: white;
+      }
+
+      .icon {
+        display: flex;
+        border: 0;
+        align-items: center;
+        font-size: 40px;
+        background: none;
+      }
+    }
+    .accordion-title {
+      margin-top: 10px;
+      background: grey;
+      span {
+        margin-left: 12px;
+      }
+    }
+
+    .accordion-content {
+      display: grid;
+      grid-template-columns: 30px auto;
+      margin-top: 10px;
+      background-color: #efefef;
+
+      .status {
+        display: flex;
+        align-items: center;
+        background-color: grey;
+        margin: 0;
+
+        span {
+          text-align: center;
+          padding: 5px;
+        }
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: auto auto auto;
+
+        @media (max-width: 991px) {
+          grid-template-columns: auto;
+        }
+
+        .info {
+          display: grid;
+          grid-template-columns: auto auto;
+          margin: 15px 0 15px 15px;
+          @media (max-width: 991px) {
+            grid-template-columns: auto;
+          }
+          label {
+            padding: 0;
+            a {
+              margin-left: 10px;
+            }
+          }
+        }
+
+        label {
+          padding: 10px;
+          @media (max-width: 991px) {
+            padding: 5px;
+          }
+          a {
+            @media (max-width: 991px) {
+              margin-left: 3em;
+            }
+          }
+        }
+
+        .estimate-bar {
+          .icon-estimate {
+            display: grid;
+            grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+
+            button {
+              display: grid;
+              justify-items: center;
+              align-items: center;
+              border: 0;
+            }
+          }
+
+          .estimate {
+            text-align: center;
+            margin: 10px 0 10px 0;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            label {
+              position: relative;
+              z-index: 1;
+              padding: 0;
+              img {
+                width: 15px;
+              }
+              .line {
+                margin-top: -14px;
+              }
+            }
+          }
+          .label-estimate {
+            display: grid;
+            grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+            justify-items: center;
+
+            label {
+              text-align: center;
+              padding: 0;
+            }
+          }
+
+          .date {
+            float: right;
+          }
+        }
+
+        .action-box {
+          padding: 0;
+          text-align: center;
+          @media (max-width: 991px) {
+            display: none;
+          }
+
+          label {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+          }
+          .btn-primary {
+            border: 0;
+            padding: 10px;
+            font-size: 1.2rem;
+            width: 65%;
+            background-color: #273445;
+          }
+        }
+      }
+    }
+  }
+
+  .line-dashed {
+    border-top: 1px dashed black;
+  }
+}

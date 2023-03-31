@@ -13,5 +13,11 @@ export default {
     ERROR_CODE: {
         E400022: 'E400022',
         E400030: 'E400030'
+    },
+    INQUIRY_TYPE: {
+        SERVICE: 6,
+        USING: 7,
+        OTHER_QUESTIONS: 8
     }
+    
 };
